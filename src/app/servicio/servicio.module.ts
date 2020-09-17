@@ -2,16 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ServicioRoutingModule } from './servicio-routing.module';
-import { RegistrarComponent } from './components/registrar/registrar.component';
 import { ListarComponent } from './components/listar/listar.component';
-import { DetalleComponent } from './conponents/detalle/detalle.component';
-
+import { ServicioDetailComponent } from "./components/servicio-detail/servicio-detail.component";
+import { MaterialModule } from '../material/material.module';
+import { ServicioComponent } from './components/servicio/servicio.component';
 
 @NgModule({
-  declarations: [RegistrarComponent, ListarComponent, DetalleComponent],
+  declarations: [ ListarComponent, ServicioDetailComponent, ServicioComponent],
   imports: [
     CommonModule,
-    ServicioRoutingModule
+    ServicioRoutingModule,
+    MaterialModule
   ]
 })
 export class ServicioModule { }
