@@ -1,16 +1,15 @@
 <mat-card>
     <mat-card-header>
-        <mat-card-title>Titulo del Servicio</mat-card-title>
-        <mat-card-subtitle>Precio del Servicio</mat-card-subtitle>
+        <mat-card-title>{{servicio.nombre | uppercase}}</mat-card-title>
+        <mat-card-subtitle>{{servicio.precio | currency}}</mat-card-subtitle>
     </mat-card-header>
     <div class="crop-image">
-        <img alt="">
+        <img src="../assets/images/imagen 1.jpg" alt="">
     </div>
     <mat-card-content>
-        <p>Descripcion</p>
+        <p>{{servicio.descripcion | slice:0:10}}</p>
     </mat-card-content>
     <mat-card-actions>
-        <a mat-raised-button>Ver detalle</a>
-        <button mat-raised-button color="primary">Reservar</button>
+        <a mat-raised-button [routerLink]="['/servicio', servicio.id ]" >Ver detalle</a>
     </mat-card-actions>
 </mat-card>

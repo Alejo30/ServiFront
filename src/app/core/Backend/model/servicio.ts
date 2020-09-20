@@ -15,4 +15,5 @@ export interface Servicio {
     empresaId?: string;
     id?: string;
     nombre?: string;
+    precio?: number;
 }

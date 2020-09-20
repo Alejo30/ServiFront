@@ -56,47 +56,6 @@ export class ServicioControllerService {
 
 
     /**
-     * buscarServicios
-     * 
-     * @param empresaId empresaId
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public buscarServiciosUsingGET(empresaId: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Servicio>>;
-    public buscarServiciosUsingGET(empresaId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Servicio>>>;
-    public buscarServiciosUsingGET(empresaId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Servicio>>>;
-    public buscarServiciosUsingGET(empresaId: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (empresaId === null || empresaId === undefined) {
-            throw new Error('Required parameter empresaId was null or undefined when calling buscarServiciosUsingGET.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            '*/*'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<Array<Servicio>>('get',`${this.basePath}/servicio/${encodeURIComponent(String(empresaId))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * createServicio
      * 
      * @param body servicio
@@ -222,6 +181,83 @@ export class ServicioControllerService {
         return this.httpClient.request<Servicio>('put',`${this.basePath}/servicio/update`,
             {
                 body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * findServiciosEmpresa
+     * 
+     * @param empresaId empresaId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findServiciosEmpresaUsingGET(empresaId: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Servicio>>;
+    public findServiciosEmpresaUsingGET(empresaId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Servicio>>>;
+    public findServiciosEmpresaUsingGET(empresaId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Servicio>>>;
+    public findServiciosEmpresaUsingGET(empresaId: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (empresaId === null || empresaId === undefined) {
+            throw new Error('Required parameter empresaId was null or undefined when calling findServiciosEmpresaUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<Servicio>>('get',`${this.basePath}/servicio/${encodeURIComponent(String(empresaId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * listServicios
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public listServiciosUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<Servicio>>;
+    public listServiciosUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Servicio>>>;
+    public listServiciosUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Servicio>>>;
+    public listServiciosUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<Servicio>>('get',`${this.basePath}/servicio/listAll`,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

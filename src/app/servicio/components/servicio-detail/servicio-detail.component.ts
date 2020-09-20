@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Servicio, ServicioControllerService } from 'src/app/core/Backend';
+
 
 @Component({
   selector: 'app-servicio-detail',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServicioDetailComponent implements OnInit {
 
-  constructor() { }
+  servicio: Servicio
+
+  constructor(private route: ActivatedRoute, private serviSrv: ServicioControllerService) { }
 
   ngOnInit(): void {
+   this.route.params.subscribe((params: Params)=> {
+     const id = params.id;
+     this.fetchServicio(id);   
+   })
   }
+
+  fetchServicio(id: string){
+    console.log(id)
+  }
+
 
 }
