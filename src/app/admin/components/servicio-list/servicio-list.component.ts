@@ -16,7 +16,7 @@ export class ServicioListComponent implements OnInit {
   constructor(private serviSrv: ServicioControllerService) { }
 
   ngOnInit(): void {
-    this,this.fetchServicios();
+    this.fetchServicios();
   }
 
   fetchServicios(){
