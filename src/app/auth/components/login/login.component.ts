@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { AuthService } from "./../../../core/services/auth.service";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private authService: AuthService
   ) {
     this.buildForm();
    }
@@ -23,7 +24,17 @@ export class LoginComponent implements OnInit {
 
 
   login(event: Event) {
-    
+    event.preventDefault();
+    if (this.form.valid) {
+      const value = this.form.value;
+      this.authService.login(value.email, value.password)
+      .then(() => {
+        this.router.navigate(['/admin'])
+      })
+      .catch(() =>{
+        alert('El Email o la COntraseña son incorrectos')
+      });
+    }
   }
 
   private buildForm() {

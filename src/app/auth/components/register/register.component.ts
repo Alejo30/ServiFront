@@ -31,7 +31,11 @@ export class RegisterComponent implements OnInit {
       this.authService.createUser(value.email, value.password)
       .then(()=>{
         this.router.navigate(['/auth/login'])
-      })
+        console.log(value)
+      });
+      /* this.perSrv.createPersonaUsingPOST(value).subscribe(
+
+      ) */
     }
   }
 
