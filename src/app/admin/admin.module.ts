@@ -5,10 +5,9 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { NavComponent } from './components/nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MaterialModule } from '../material/material.module';
-import { ServicioFormComponent } from './components/servicio-form/servicio-form.component';
+
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { TurnoFormComponent } from './components/turno-form/turno-form.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
@@ -20,11 +19,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { TurnoListComponent } from './components/turno-list/turno-list.component';
+import { ServicioFormComponent } from './components/servicio-form/servicio-form.component';
 
 
 
 @NgModule({
-  declarations: [NavComponent, ServicioFormComponent, TurnoFormComponent, DashboardComponent, ServicioListComponent, TurnoListComponent],
+  declarations: [NavComponent, DashboardComponent, ServicioListComponent, TurnoListComponent, ServicioFormComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

@@ -1,21 +1,38 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ServicioControllerService } from 'src/app/core/Backend';
 
 @Component({
   selector: 'app-servicio-form',
   templateUrl: './servicio-form.component.html',
   styleUrls: ['./servicio-form.component.css']
 })
-export class ServicioFormComponent {
-  serviForm = this.fb.group({
-    nombre: [null, Validators.required],
-    descripcion: [null, Validators.required],
-    precio: [null, Validators.required]
-  });
+export class ServicioFormComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) {}
+  form: FormGroup;
 
-  onSubmit() {
-    alert('Thanks!');
+  constructor(
+    private formBuilder: FormBuilder,
+    private serviSrv: ServicioControllerService,
+    private router: Router
+  ) { 
+    this.buildForm()
+   }
+
+  ngOnInit(): void {
   }
+
+  saveServicio(event: Event){
+    event.preventDefault();
+  }
+
+  private buildForm(){
+    this.form = this.formBuilder.group({
+      nombre: ['', [Validators.required]],
+      descripcion: ['', [Validators.required]],
+      precio: ['', [Validators.required]],
+    })
+  }
+
 }
