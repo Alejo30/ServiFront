@@ -19,7 +19,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LayoutModule } from '@angular/cdk/layout';
 import {MatStepperModule} from '@angular/material/stepper';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 
@@ -46,7 +46,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatSortModule,
     LayoutModule,
     MatFormFieldModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSlideToggleModule
   ],
   exports:[
     MatButtonModule,
@@ -66,7 +67,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatSortModule,
     LayoutModule,
     MatFormFieldModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSlideToggleModule
   ]
 })
 export class MaterialModule { }
