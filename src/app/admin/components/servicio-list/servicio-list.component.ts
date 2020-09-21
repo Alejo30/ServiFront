@@ -1,30 +1,29 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
-import { ServicioListDataSource, ServicioListItem } from './servicio-list-datasource';
+import { Component, OnInit } from '@angular/core';
+import { ServicioControllerService } from 'src/app/core/Backend';
+
 
 @Component({
   selector: 'app-servicio-list',
   templateUrl: './servicio-list.component.html',
   styleUrls: ['./servicio-list.component.css']
 })
-export class ServicioListComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatTable) table: MatTable<ServicioListItem>;
-  dataSource: ServicioListDataSource;
+export class ServicioListComponent implements OnInit {
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  servicios = [];
 
-  ngOnInit() {
-    this.dataSource = new ServicioListDataSource();
+  displayedColumns: string[] =['nombre', 'precio', 'acciones'];
+  
+  constructor(private serviSrv: ServicioControllerService) { }
+
+  ngOnInit(): void {
+    this,this.fetchServicios();
   }
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+  fetchServicios(){
+    this.serviSrv.listServiciosUsingGET()
+    .subscribe(servicios => {
+      this.servicios = servicios;
+    });
   }
+
 }

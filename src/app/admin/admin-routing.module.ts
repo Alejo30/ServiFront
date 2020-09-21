@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavComponent } from './components/nav/nav.component';
+import { ServicioFormComponent } from './components/servicio-form/servicio-form.component';
+import { ServicioListComponent } from './components/servicio-list/servicio-list.component';
 
 
 const routes: Routes = [
@@ -11,7 +13,7 @@ const routes: Routes = [
     children: [
       {
         path: 'create-servicio',
-        //component: ServicioFormComponent
+        component: ServicioFormComponent
       },
       {
         path: 'create-turno',
@@ -22,8 +24,8 @@ const routes: Routes = [
         component: DashboardComponent
       },
       {
-        path: 'dashboard',
-        //component: DashboardComponent
+        path: 'servicios-list',
+        component: ServicioListComponent
       },
       {
         path: 'products/create',
