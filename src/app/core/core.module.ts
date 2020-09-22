@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EmpresaControllerService, PersonaControllerService, ServicioControllerService, TipoUsuarioControllerService, TurnoControllerService } from './Backend';
+import { EmpresaControllerService, PersonaControllerService, ServicioControllerService, TurnoControllerService } from './Backend';
 
 
 
@@ -13,7 +13,6 @@ import { EmpresaControllerService, PersonaControllerService, ServicioControllerS
     EmpresaControllerService,
     PersonaControllerService,
     ServicioControllerService,
-    TipoUsuarioControllerService,
     TurnoControllerService
   ]
 })
