@@ -13,6 +13,7 @@
 export interface Servicio { 
     descripcion?: string;
     empresaId?: string;
+    foto?: string;
     id?: string;
     nombre?: string;
     precio?: number;

@@ -26,7 +26,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class PersonaControllerService {
 
-    protected basePath = '//localhost:8080';
+    protected basePath = '//localhost:8080/';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -175,55 +175,6 @@ export class PersonaControllerService {
 
         return this.httpClient.request<Persona>('get',`${this.basePath}/persona/${encodeURIComponent(String(cedula))}`,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * login
-     * 
-     * @param cedula cedula
-     * @param password password
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public loginUsingGET(cedula?: string, password?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public loginUsingGET(cedula?: string, password?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public loginUsingGET(cedula?: string, password?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public loginUsingGET(cedula?: string, password?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (cedula !== undefined && cedula !== null) {
-            queryParameters = queryParameters.set('cedula', <any>cedula);
-        }
-        if (password !== undefined && password !== null) {
-            queryParameters = queryParameters.set('password', <any>password);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<boolean>('get',`${this.basePath}/persona/login`,
-            {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
