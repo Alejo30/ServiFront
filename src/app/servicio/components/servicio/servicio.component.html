@@ -7,9 +7,9 @@
         <img src="../assets/images/imagen 1.jpg" alt="">
     </div>
     <mat-card-content>
-        <p>{{servicio.descripcion | slice:0:10}}</p>
+        <p>{{servicio.descripcion | slice:0:15}}</p>
     </mat-card-content>
     <mat-card-actions>
-        <a mat-raised-button [routerLink]="['/servicio', servicio.id ]" >Ver detalle</a>
+        <a mat-raised-button color="primary" [routerLink]="['/servicio', servicio.id ]" >Ver detalle</a>
     </mat-card-actions>
 </mat-card>

@@ -7,9 +7,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { RegisterEmpComponent } from './components/register-emp/register-emp.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent, RegisterEmpComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

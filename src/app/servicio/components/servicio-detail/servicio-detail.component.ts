@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Servicio, ServicioControllerService } from 'src/app/core/Backend';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { map, tap } from 'rxjs/operators';
+import { Servicio, ServicioControllerService, TurnoControllerService } from 'src/app/core/Backend';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 
 @Component({
@@ -10,9 +12,13 @@ import { Servicio, ServicioControllerService } from 'src/app/core/Backend';
 })
 export class ServicioDetailComponent implements OnInit {
 
-  servicio: Servicio
+  servicio: Servicio;
 
-  constructor(private route: ActivatedRoute, private serviSrv: ServicioControllerService) { }
+  constructor(private route: ActivatedRoute,
+              private serviSrv: ServicioControllerService,
+              private turnoSrv: TurnoControllerService,
+              private auth: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
    this.route.params.subscribe((params: Params)=> {
@@ -22,7 +28,17 @@ export class ServicioDetailComponent implements OnInit {
   }
 
   fetchServicio(id: string){
-    console.log(id)
+    console.log(id);
+    this.serviSrv.findIdUsingGET(id).subscribe(
+      servicio => {
+        this.servicio = servicio
+      }
+    )
+  }
+
+  reservar(){
+   this.auth.hasUser();
+   
   }
 
 

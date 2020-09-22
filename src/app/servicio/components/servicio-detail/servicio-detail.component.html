@@ -5,10 +5,10 @@
     </div>
     <div>
         <ul>
-            <li>Nombre del Servicio</li>
-            <li>Precio del Servicio</li>
+            <li>Nombre: {{servicio.nombre}}</li>
+            <li>Precio del Servicio: {{servicio.precio | currency}}</li>
         </ul>
-        <p>Descripcion del Servicio</p>
+        <p>Descripcion del Servicio: {{servicio.descripcion}}</p>
     </div>
-    <button mat-raised-button color="primary">Reservar</button>
+    <button mat-raised-button routerLink="/turno/" color="primary">Reservar</button>
 </div>

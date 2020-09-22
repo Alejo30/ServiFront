@@ -10,11 +10,12 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { ServicioFormComponent } from './components/servicio-form/servicio-form.component';
 import { ServicioListComponent } from './components/servicio-list/servicio-list.component';
+import { ServicioEditComponent } from './components/servicio-edit/servicio-edit.component';
 
 
 
 @NgModule({
-  declarations: [NavComponent, DashboardComponent, ServicioFormComponent, ServicioListComponent],
+  declarations: [NavComponent, DashboardComponent, ServicioFormComponent, ServicioListComponent, ServicioEditComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

@@ -23,6 +23,5 @@ export class AuthService {
 
   hasUser(){
     return this.af.authState;
-    
   }
 }
