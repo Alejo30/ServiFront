@@ -29,7 +29,6 @@ const routes: Routes = [
       },
       {
         path: 'turno',
-        canActivate: [ReservaGuard],
         loadChildren: () => import('./turno/turno.module').then(m => m.TurnoModule)
       }
     ]

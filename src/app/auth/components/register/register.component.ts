@@ -12,6 +12,7 @@ import { AuthService } from "./../../../core/services/auth.service";
 export class RegisterComponent implements OnInit {
 
   form: FormGroup;
+  emp: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,14 +29,19 @@ export class RegisterComponent implements OnInit {
     event.preventDefault();
     if (this.form.valid) {
       const value = this.form.value;
-      this.authService.createUser(value.email, value.password)
+      this.authService.createUser(value.correo, value.password)
       .then(()=>{
+        this.perSrv.createPersonaUsingPOST(value).subscribe(
+          persona =>{
+            alert('Persona Creada');
+            alert('Su Usuario es su correo');
+            console.log(persona);
+          }
+        )
         this.router.navigate(['/auth/login'])
         console.log(value)
       });
-      /* this.perSrv.createPersonaUsingPOST(value).subscribe(
-
-      ) */
+     
     }
   }
 
@@ -44,11 +50,17 @@ export class RegisterComponent implements OnInit {
       cedula: ['', Validators.required],
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      fechaNac: ['', Validators.required],
-      email: ['', Validators.required],
+      fechaNacimiento: ['', Validators.required],
+      correo: ['', Validators.required],
+      foto: [''],
       password: ['', Validators.required],
-      isEmpre: ['']
+      cuentaEmpresario: ['']
     })
+    
+  }
+
+  updateImage(event){
+    const file = event.target.files[0]
   }
 
 }
