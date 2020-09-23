@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavComponent } from './components/nav/nav.component';
+import { ServicioEditComponent } from './components/servicio-edit/servicio-edit.component';
 import { ServicioFormComponent } from './components/servicio-form/servicio-form.component';
 import { ServicioListComponent } from './components/servicio-list/servicio-list.component';
 
@@ -24,7 +25,7 @@ const routes: Routes = [
         component: DashboardComponent
       },
       {
-        path: 'servicios-list',
+        path: 'servicios',
         component: ServicioListComponent
       },
       {
@@ -32,8 +33,8 @@ const routes: Routes = [
         //component: FormProductComponent
       },
       {
-        path: 'products/edit/:id',
-        //component: ProductEditComponent
+        path: 'servicios/edit/:id',
+        component: ServicioEditComponent
       },
     ]
   }

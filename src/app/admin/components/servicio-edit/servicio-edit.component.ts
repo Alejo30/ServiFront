@@ -33,14 +33,14 @@ export class ServicioEditComponent implements OnInit {
   }
 
 
-  saveProduct(event: Event){
+  saveServicio(event: Event){
     event.preventDefault();
     if(this.form.valid){
       const servicio = this.form.value;
       this.servSrv.editarServicioUsingPUT(servicio)
       .subscribe((newServicio)=>{
         console.log(newServicio);
-        this.router.navigate(['./admin/servicios-list']);
+        this.router.navigate(['./admin/servicios']);
       }
       )
     }
