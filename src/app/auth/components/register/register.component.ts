@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
 
   form: FormGroup;
   emp: boolean;
+  fotoBase64: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,7 +45,6 @@ export class RegisterComponent implements OnInit {
      
     }
   }
-
   private buildForm(){
     this.form = this.formBuilder.group({
       cedula: ['', Validators.required],
@@ -52,15 +52,20 @@ export class RegisterComponent implements OnInit {
       apellido: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
       correo: ['', Validators.required],
-      foto: [''],
+      foto: [this.fotoBase64, Validators.required] ,
       password: ['', Validators.required],
       cuentaEmpresario: ['']
     })
     
   }
 
-  updateImage(event){
-    const file = event.target.files[0]
+  public picked(event){
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.fotoBase64 = reader.result;
+    };
   }
-
+ 
 }

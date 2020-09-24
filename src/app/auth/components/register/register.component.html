@@ -12,8 +12,10 @@
                 </div>
                 <div class="col">
                     <label for="">Foto de Perfil</label>
-                    <input placeholder="Foto" (click)="updateImage($event)" type="file">
+                     <input (change)="picked($event)" type="file" formControlName="foto"/>
+                    <img [src]="fotoBase64" width="auto" height="200pxs">
                 </div>
+               
             </div>
             <div class="row">
                 <div class="col">
