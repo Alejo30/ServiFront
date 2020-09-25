@@ -24,6 +24,11 @@
                         <input placeholder="Precio" formControlName="precio" matInput type="number">
                     </mat-form-field>
                 </div>
+            </div><br>
+            <div class="col-xs">
+                <label for="">Foto del Servicio </label>
+                <input (change)="picked($event)" type="file" formControlName="foto"/>
+                <img [src]="fotoBase64" width="auto" height="200pxs">
             </div>
         </mat-card-content>
         <mat-card-actions>
