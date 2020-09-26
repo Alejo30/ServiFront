@@ -8,7 +8,7 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { RegisterEmpComponent } from './components/register-emp/register-emp.component';
-FormsModule
+
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, RegisterEmpComponent],
@@ -18,7 +18,8 @@ FormsModule
     MaterialModule,
     ReactiveFormsModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    
   ]
 })
 export class AuthModule { }

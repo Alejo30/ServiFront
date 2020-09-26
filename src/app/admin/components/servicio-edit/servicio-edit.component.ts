@@ -49,6 +49,7 @@ export class ServicioEditComponent implements OnInit {
 
   private buildForm(){
     this.form = this.formBuilder.group({
+      id: [this.id],
       nombre: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
       precio: ['', [Validators.required]],

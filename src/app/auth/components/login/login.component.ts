@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Persona, PersonaControllerService } from 'src/app/core/Backend';
 import { AuthService } from "./../../../core/services/auth.service";
 @Component({
   selector: 'app-login',
@@ -10,11 +11,12 @@ import { AuthService } from "./../../../core/services/auth.service";
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
-
+  persona: Persona;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private perSrv: PersonaControllerService
   ) {
     this.buildForm();
    }
@@ -28,11 +30,14 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       const value = this.form.value;
       this.authService.login(value.email, value.password)
-      .then(() => {
+      .then((result) => {
+         const r = result.user.displayName
+         this.BuscarPer(r);
+         console.log(r)
         this.router.navigate(['/admin'])
       })
       .catch(() =>{
-        alert('El Email o la COntraseña son incorrectos')
+        alert('El Email o la Contraseña son incorrectos')
       });
     }
   }
@@ -42,6 +47,20 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
+  }
+
+  private BuscarPer(cedula: string){
+   this.perSrv.findByCedulaUsingGET(cedula).subscribe(
+     persona => {
+       this.persona = persona
+       if (this.persona.cuentaEmpresario) {
+         alert('Es Empresario')
+       }else{
+        alert('Es un Cliente')
+       }
+
+     }
+   )
   }
 
 }

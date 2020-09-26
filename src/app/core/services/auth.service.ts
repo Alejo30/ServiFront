@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase';
 
 
 @Injectable({
@@ -23,5 +24,15 @@ export class AuthService {
 
   hasUser(){
     return this.af.authState;
+  }
+
+  ActiveSesion(){
+   
+    this.af.currentUser.then(
+      result => {
+        result.displayName
+      }
+    )
+
   }
 }

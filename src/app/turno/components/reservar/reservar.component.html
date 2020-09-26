@@ -1,20 +1,35 @@
-<mat-horizontal-stepper>
-    <mat-step>
-        <ng-template matStepLabel>Reservacion del Turno</ng-template>
-        <div>
-            <ul>
-                <li>
-                    El turno
-                </li>
-            </ul>
+<div class="container">
+
+    <div class="row">
+        <div class="col-xs">
+
+            <full-calendar [options]="calendarOptions"></full-calendar>
+
         </div>
-    </mat-step>
-    <mat-step>
-        <ng-template matStepLabel>Datos Personales</ng-template>
-        <h1>Sus datos personales</h1>
-    </mat-step>
-    <mat-step>
-        <ng-template matStepLabel>Pago</ng-template>
-        <h1>Los datos del pago</h1>
-    </mat-step>
-</mat-horizontal-stepper>
+        <div class="col-xs">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Formulario de Reserva</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <form [formGroup]="form">
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <input placeholder="Fecha" formControlName="fecha" matInput type="text">
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <input placeholder="Hora" formControlName="hora" matInput type="text">
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                    </form>
+                </mat-card-content>
+            </mat-card>
+
+        </div>
+    </div>
+</div> 

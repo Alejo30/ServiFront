@@ -13,6 +13,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { environment } from "../environments/environment";
+import { DialogComponent } from './shared/components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { environment } from "../environments/environment";
     AngularFireAuthModule,
     AngularFireStorageModule
   ],
+ 
   providers: [],
   bootstrap: [AppComponent]
 })
