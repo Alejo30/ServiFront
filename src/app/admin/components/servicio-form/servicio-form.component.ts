@@ -11,6 +11,7 @@ import { ServicioControllerService } from 'src/app/core/Backend';
 export class ServicioFormComponent implements OnInit {
 
   form: FormGroup;
+  fotoBase64: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,7 +41,17 @@ export class ServicioFormComponent implements OnInit {
       nombre: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
       precio: ['', [Validators.required]],
+      foto:this.fotoBase64,
     })
+  }
+
+  public picked(event){
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.fotoBase64 = reader.result;
+    };
   }
 
 }
