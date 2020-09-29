@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Router } from '@angular/router';
-import { PersonaControllerService } from 'src/app/core/Backend';
+import { catchError } from 'rxjs/operators';
+import { Direccion, EmpresaControllerService, PersonaControllerService } from 'src/app/core/Backend';
 import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 import { AuthService } from "./../../../core/services/auth.service";
 
@@ -22,11 +23,19 @@ export class RegisterComponent implements OnInit {
   formD: FormGroup;
   emp: boolean;
   fotoBase64: any;
+  value: any;
+  isEditable = false;
+  direccion: any ={
+    callePrincipal: '',
+    calleSecundaria: '',
+    numero: '',
+  } 
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private perSrv: PersonaControllerService,
+    private empSrv: EmpresaControllerService,
     private authService: AuthService,
     public dialog: MatDialog
   ) { }
@@ -38,16 +47,18 @@ export class RegisterComponent implements OnInit {
   register(event: Event){
     event.preventDefault();
     if (this.form.valid) {
-      const value = this.form.value;
-      this.authService.createUser(value.correo, value.password)
+      this.isEditable = true;
+      console.log(this.isEditable)
+      this.value = this.form.value;
+      this.authService.createUser(this.value.correo, this.value.password)
       .then((result)=>{
         result.user.updateProfile({
-          displayName: value.cedula
+          displayName: this.value.cedula
         }).catch(error =>{
           console.error(error)
         })
 
-        const configuracion = {
+        /* const configuracion = {
           url: 'http://localhost:4200/home'
         }
 
@@ -56,16 +67,35 @@ export class RegisterComponent implements OnInit {
         })
 
         this.authService.logout();
-        alert('Bienvenido' + value.nombre + 'Debe Realizar el proceso de verificacion')
-        this.router.navigate(['/auth/login'])
-        console.log(value)
-        this.RegisPerson(value)
+        alert('Bienvenido' + this.value.nombre + 'Debe Realizar el proceso de verificacion') */
+        this.openDialog()
+       
       })
       .catch(() =>{
         alert('No se ha podido Registrar')
       });
      
     }
+  }
+
+  regis(){
+     if (this.formE.valid) {
+      const empresa = this.formE.value;
+      this.direccion = this.formD.value;
+      empresa.direccion =  this.direccion
+       
+      empresa.personaId = this.value.cedula
+      console.log(empresa)
+      console.log(this.direccion)
+      this.empSrv.createEmpresaUsingPOST(empresa).subscribe(data => {
+        console.log(data);
+      })   
+      console.log(empresa.personaId)
+      console.log(empresa)
+     
+    }else{
+      console.log('No es valido');
+    }    
   }
 
   openDialog(): void {
@@ -75,8 +105,15 @@ export class RegisterComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(res => {
       console.log(res);
-      if (res) {
+      if (res) {  
         console.log('Iniciando')
+        this.value.cuentaEmpresario = this.emp = true
+        this.RegisPerson(this.value)
+       
+      }else{
+        
+        this.RegisPerson(this.value)
+        this.router.navigate(['/auth/login'])
       }
     })
   }
@@ -90,13 +127,14 @@ export class RegisterComponent implements OnInit {
       correo: ['', Validators.required],
       foto: [this.fotoBase64, Validators.required] ,
       password: ['', Validators.required],
-      cuentaEmpresario: ['']
+      cuentaEmpresario: [this.emp]
     })
 
     this.formE = this.formBuilder.group({
       ruc: ['', Validators.required],
       nombre: ['', Validators.required],
-      direccion: ['', Validators.required]
+      personaId: [''],
+      direccion: [this.direccion]
     })
 
     this.formD = this.formBuilder.group({

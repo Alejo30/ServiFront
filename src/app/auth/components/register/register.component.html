@@ -1,5 +1,5 @@
 <mat-horizontal-stepper labelPosition="bottom" #stepper>
-    <mat-step >
+    <mat-step>
         <ng-template matStepLabel>Datos Personales</ng-template>
         <form [formGroup]="form" (ngSubmit)="register($event)">
             <mat-card>
@@ -12,7 +12,7 @@
                         </div>
                         <div class="col">
                             <label for="">Foto de Perfil: </label>
-                             <input (change)="picked($event)" type="file" formControlName="foto"/>
+                            <input (change)="picked($event)" type="file" formControlName="foto" />
                             <img [src]="fotoBase64" width="auto" height="200pxs">
                         </div>
                     </div>
@@ -21,8 +21,8 @@
                             <mat-form-field class="full-width">
                                 <input placeholder="Nombre" formControlName="nombre" matInput type="text">
                             </mat-form-field>
-                        </div>  
-                        <div class="col" >
+                        </div>
+                        <div class="col">
                             <mat-form-field class="full-width">
                                 <input placeholder="Apellido" formControlName="apellido" matInput type="text">
                             </mat-form-field>
@@ -31,10 +31,11 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width">
-                                <input placeholder="Fecha de Nacimiento" formControlName="fechaNacimiento" matInput type="date">
+                                <input placeholder="Fecha de Nacimiento" formControlName="fechaNacimiento" matInput
+                                    type="date">
                             </mat-form-field>
                         </div>
-                        <div class="col-xs" >
+                        <div class="col-xs">
                             <mat-form-field class="full-width">
                                 <input placeholder="Email" formControlName="correo" matInput type="email">
                             </mat-form-field>
@@ -47,17 +48,16 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <button mat-button (click)="openDialog()">text</button>
-                </mat-card-content> 
+                </mat-card-content>
                 <mat-card-actions>
-                    <button [disabled]="form.invalid" mat-raised-button type="submit">Registrar</button>
+                    <button [disabled]="form.invalid" mat-raised-button matStepperNext type="submit">Registrar</button>
                 </mat-card-actions>
             </mat-card>
         </form>
     </mat-step>
-    <mat-step optional>
+    <mat-step>
         <ng-template matStepLabel>Empresa</ng-template>
-        <form [formGroup]="formE" (ngSubmit)="register($event)">
+        <form [formGroup]="formE" (ngSubmit)="regis()">
             <mat-card>
                 <mat-card-content>
                     <div class="row">
@@ -72,56 +72,39 @@
                             <mat-form-field class="full-width">
                                 <input placeholder="Nombre" formControlName="nombre" matInput type="text">
                             </mat-form-field>
-                        </div>  
+                        </div>
                     </div>
-                </mat-card-content> 
+                    <form [formGroup]="formD">
+                        <div class="row">
+                            <label for="">Direccion</label>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <input placeholder="Calle Principal" formControlName="callePrincipal" matInput
+                                        type="text">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <input placeholder="Calle Secundaria" formControlName="calleSecundaria" matInput
+                                        type="text">
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <input placeholder="Numero de Casa" formControlName="numero" matInput type="text">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </mat-card-content>
                 <mat-card-actions>
-                    <button [disabled]="form.invalid" mat-raised-button type="submit"> Siguiente</button>
+                    <button mat-raised-button type="submit"> Siguiente</button>
                 </mat-card-actions>
             </mat-card>
         </form>
     </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Direccion</ng-template>
-      <form [formGroup]="formD" (ngSubmit)="register($event)">
-            <mat-card>
-                <mat-card-content>
-                    <div class="row">
-                        <div class="col">
-                            <mat-form-field class="full-width">
-                                <input placeholder="Calle Principal" formControlName="callePrincipal" matInput type="text">
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <mat-form-field class="full-width">
-                                <input placeholder="Calle Secundaria" formControlName="calleSecundaria" matInput type="text">
-                            </mat-form-field>
-                        </div> 
-                    </div>
-                    <div class="row">
-                        <div class="col" >
-                            <mat-form-field class="full-width">
-                                <input placeholder="Número de Casa" formControlName="numero" matInput type="text">
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </mat-card-content> 
-                <mat-card-actions>
-                    <button [disabled]="form.invalid" mat-raised-button type="submit">Siguiente</button>
-                </mat-card-actions>
-            </mat-card>
-        </form>
-        <button  mat-button  matStepperNext> Siguiente </button> 
-    </mat-step>
-    <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        <h1>You are now done.</h1>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button >>Reset</button>
-        </div>
-      </mat-step>
-  </mat-horizontal-stepper>
- 
+</mat-horizontal-stepper>
