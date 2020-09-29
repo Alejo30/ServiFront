@@ -143,6 +143,55 @@ export class TurnoControllerService {
     }
 
     /**
+     * findTurnoDisponible
+     * 
+     * @param fecha fecha
+     * @param hora hora
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findTurnoDisponibleUsingGET(fecha: string, hora?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public findTurnoDisponibleUsingGET(fecha: string, hora?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public findTurnoDisponibleUsingGET(fecha: string, hora?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public findTurnoDisponibleUsingGET(fecha: string, hora?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (fecha === null || fecha === undefined) {
+            throw new Error('Required parameter fecha was null or undefined when calling findTurnoDisponibleUsingGET.');
+        }
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (hora !== undefined && hora !== null) {
+            queryParameters = queryParameters.set('hora', <any>hora);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<boolean>('get',`${this.basePath}/turno/Enable/${encodeURIComponent(String(fecha))}/${encodeURIComponent(String(hora))}`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * findTurnosPersona
      * 
      * @param personaId personaId

@@ -31,7 +31,7 @@ export class ServicioFormComponent implements OnInit {
       this.serviSrv.createServicioUsingPOST(servicio)
       .subscribe((newServicio)=>{
         console.log(newServicio);
-        this.router.navigate(['./admin/servicios-list'])
+        this.router.navigate(['./admin/servicios'])
       })
     }
   }
