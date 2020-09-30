@@ -17,20 +17,12 @@ const routes: Routes = [
         component: ServicioFormComponent
       },
       {
-        path: 'create-turno',
-        //component: TurnoFormComponent
-      },
-      {
         path: '',
         component: DashboardComponent
       },
       {
         path: 'servicios',
         component: ServicioListComponent
-      },
-      {
-        path: 'products/create',
-        //component: FormProductComponent
       },
       {
         path: 'servicios/edit/:id',

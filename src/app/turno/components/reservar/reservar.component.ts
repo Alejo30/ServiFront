@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CalendarOptions } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/es';
+import { TurnoControllerService } from 'src/app/core/Backend';
 
 @Component({
   selector: 'app-reservar',
@@ -14,36 +15,27 @@ export class ReservarComponent implements OnInit {
   header: any;
   options: any;
   fecha: string;
-  
-  calendarOptions: CalendarOptions = {
-    locale: esLocale,
-    editable: true,
-    initialView: 'dayGridMonth',
-    dateClick: this.handleDateClick.bind(this), // bind is important!
-    events: [
-      { title: 'event 1', date: '2020-09-01' },
-      { title: 'event 2', date: '2020-09-10' }
-    ]
-    
-  };
-            
+  disponible: boolean;
+ 
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private turnoSrv: TurnoControllerService) { }
 
   ngOnInit(): void {
     this.buildForm();
+    
   }
 
-  handleDateClick(arg) {
-    this.fecha = arg.dateStr
-    alert('date click! ' + arg.dateStr)
-    this.form.setValue({
-      fecha : [this.fecha],
-      hora: ['']
-    })
-   console.log(this.fecha)
+  prueba(){
+    console.log('Estoy haciendo la prueba');
+    this.turnoSrv.findTurnoDisponibleUsingGET("2020-09-30", "11:00").subscribe(
+      data => {
+          this.disponible = data;
+          console.log(this.disponible);
+      }
+    )
 
   }
+
 
   private buildForm(){
     this.form = this.formBuilder.group({

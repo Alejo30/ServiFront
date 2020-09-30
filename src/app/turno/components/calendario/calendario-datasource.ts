@@ -12,30 +12,19 @@ export interface CalendarioItem {
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: CalendarioItem[] = [
-  {id: '7:00 - 7:30', name: 'Hydrogen'},
-  {id: '7:30 - 8:00', name: 'Helium'},
-  {id: '8:00 - 8:30' , name: 'Lithium'},
-  {id: '8:30 - 9:00', name: 'Beryllium'},
-  {id: '9:00 - 9:30', name: 'Boron'},
-  {id: '9:30 - 10:00', name: 'Carbon'},
-  {id: '10:00 - 10:30', name: 'Nitrogen'},
-  {id: '10:30 - 11:00', name: 'Oxygen'},
-  {id: '11:00 - 11:30', name: 'Fluorine'},
-  {id: '11:30 - 12:00', name: 'Neon'},
-  {id: '12:00 - 12:30', name: 'Sodium'},
-  {id: '12:30 - 13:00', name: 'Magnesium'},
-  {id: '13:30 - 14:00', name: 'Aluminum'},
-  {id: '14:30 - 15:00', name: 'Silicon'},
-  {id: '15:00 - 15:30', name: 'Sodium'},
-  {id: '15:30 - 16:00', name: 'Magnesium'},
-  {id: '16:00 - 16:30', name: 'Aluminum'},
-  {id: '16:30 - 17:00', name: 'Silicon'},
-  {id: '17:00 - 17:30', name: 'Magnesium'},
-  {id: '17:30 - 18:00', name: 'Aluminum'},
-  {id: '18:00 - 18:30', name: 'Silicon'},
-  {id: '18:30 - 19:00', name: 'Magnesium'},
-  {id: '19:00 - 19:30', name: 'Aluminum'},
-  {id: '19:30 - 20:00', name: 'Silicon'},
+  {id: '7:00', name: 'Hydrogen'},
+  {id: '8:00' , name: 'Lithium'},
+  {id: '9:00', name: 'Beryllium'},
+  {id: '10:00', name: 'Carbon'},
+  {id: '11:00', name: 'Oxygen'},
+  {id: '12:00', name: 'Neon'},
+  {id: '13:00', name: 'Magnesium'},
+  {id: '14:00', name: 'Silicon'},
+  {id: '15:00', name: 'Sodium'},
+  {id: '16:00', name: 'Magnesium'},
+  {id: '17:00', name: 'Silicon'},
+  {id: '18:00', name: 'Aluminum'},
+  {id: '19:00', name: 'Magnesium'}
 ];
 
 /**

@@ -41,7 +41,7 @@ export class ServicioFormComponent implements OnInit {
       nombre: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
       precio: ['', [Validators.required]],
-      foto:this.fotoBase64,
+      foto: this.fotoBase64,
     })
   }
 

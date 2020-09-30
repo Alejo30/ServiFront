@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { CalendarOptions } from '@fullcalendar/core';
 import { map, tap } from 'rxjs/operators';
 import { Servicio, ServicioControllerService, TurnoControllerService } from 'src/app/core/Backend';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -19,9 +18,10 @@ export class ServicioDetailComponent implements OnInit {
   servicio: Servicio;
   form: FormGroup;
   fecha: string;
-  id: string
+  id: string;
   perID: string;
   panelOpenState = false;
+  value: any;
 
   constructor(private route: ActivatedRoute,
               private serviSrv: ServicioControllerService,
@@ -34,52 +34,52 @@ export class ServicioDetailComponent implements OnInit {
   ngOnInit(): void {
    this.route.params.subscribe((params: Params)=> {
     this.id = params.id;
-     this.fetchServicio(this.id);   
+    this.fetchServicio(this.id);
    })
    this.buildForm();
-   const user =  firebase.auth().currentUser;
-   if (user != null) {
-     this.perID = user.displayName
-     console.log(this.perID)
-   }
-   const value = this.form.value
-   value.personaId = this.perID
   }
 
   fetchServicio(id: string){
-    console.log(id);
     this.serviSrv.findIdUsingGET(id).subscribe(
       servicio => {
-        this.servicio = servicio
+        this.servicio = servicio;
       }
     )
   }
 
-  reservar(){
+  cargaUsuario(){
     const user =  firebase.auth().currentUser;
     if (user != null) {
-      this.perID = user.displayName
-      console.log(this.perID)
+      this.perID = user.displayName;
+      console.log(this.perID);
     }
-    const value = this.form.value
-    value.personaId = this.perID
-    console.log(value)
-
+    this.value = this.form.value;
+    this.value.personaId = this.perID;
+   
   }
 
   saveTurno(event: Event){
-    
     event.preventDefault();
-   
+    this.cargaUsuario();
+    console.log(this.value);
     if (this.form.valid) {
-      const value = this.form.value;
-     /*  this.turnoSrv.createTurnoUsingPOST(value).subscribe(
+      alert('El formulario es valido');
+      this.turnoSrv.findTurnoDisponibleUsingGET(this.value.fecha, this.value.hora).subscribe(
         data => {
-          alert('Se ha registardo su turno')
-        }
-      ) */
+          if(data){
+            console.log(data);
+            this.turnoSrv.createTurnoUsingPOST(this.value).subscribe(
+              data => {
+                alert('Se ha registardo su turno');
+              }
+            );
+          }else{
+            alert('El turno ya esta ocupado')
+          }
+          }
+      )
     }else{
-      alert('El formulario es invalido')
+      alert('El formulario es invalido');
     }
   }
 
@@ -88,11 +88,8 @@ export class ServicioDetailComponent implements OnInit {
     this.form = this.formBuilder.group({
       fecha : ['', Validators.required],
       hora: ['', Validators.required],
-      servicioId: [this.id, Validators.required],
-      personaId: [this.perID, Validators.required],
-    })
-    
+      servicioId: [this.id],
+      personaId: [this.perID]
+    });
   }
-
-
 }

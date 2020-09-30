@@ -10,6 +10,12 @@
                         <input placeholder="Nombre" formControlName="nombre" matInput type="text">
                     </mat-form-field>
                 </div>
+                <div class="col-xs">
+                    <label for="">Foto del Servicio </label>
+                    <input (change)="picked($event)" type="file" formControlName="foto"/>
+                    <br>
+                    <img [src]="fotoBase64" width="auto" height="200pxs">
+                </div>
             </div>
             <div class="row">
                 <div class="col-xs">
@@ -24,12 +30,9 @@
                         <input placeholder="Precio" formControlName="precio" matInput type="number">
                     </mat-form-field>
                 </div>
+
             </div><br>
-            <div class="col-xs">
-                <label for="">Foto del Servicio </label>
-                <input (change)="picked($event)" type="file" formControlName="foto"/>
-                <img [src]="fotoBase64" width="auto" height="200pxs">
-            </div>
+            
         </mat-card-content>
         <mat-card-actions>
             <button [disabled]="form.invalid" mat-raised-button type="submit">Guardar</button>

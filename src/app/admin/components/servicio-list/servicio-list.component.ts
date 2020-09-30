@@ -26,4 +26,14 @@ export class ServicioListComponent implements OnInit {
     });
   }
 
+  deleteProduct(id: string){
+    this.serviSrv.deleteServicioUsingDELETE(id).subscribe(
+      data => {
+        this.fetchServicios();
+        console.log(data);
+        window.alert('Eliminado');
+      }
+    )
+  }
+
 }

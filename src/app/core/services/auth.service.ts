@@ -7,32 +7,29 @@ import * as firebase from 'firebase';
   providedIn: 'root'
 })
 export class AuthService {
-
   constructor(private af: AngularFireAuth) { }
 
-  createUser(email: string, password: string){
-   return this.af.createUserWithEmailAndPassword(email, password);
+  createUser(email: string, password: string) {
+    return this.af.createUserWithEmailAndPassword(email, password);
   }
 
-  login(email: string, password: string){
+  login(email: string, password: string) {
     return this.af.signInWithEmailAndPassword(email, password);
   }
 
-  logout(){
+  logout() {
     return this.af.signOut();
   }
 
-  hasUser(){
+  hasUser() {
     return this.af.authState;
   }
 
-  ActiveSesion(){
-   
-    this.af.currentUser.then(
-      result => {
-        result.displayName
-      }
-    )
-
+  activeSesion() {
+    const user = firebase.auth().currentUser;
+    if (user != null) {
+      const perID = user.displayName;
+      console.log(perID);
+    }
   }
 }

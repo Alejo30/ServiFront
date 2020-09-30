@@ -10,8 +10,8 @@
         </mat-expansion-panel-header>
         <div>
             <div class="row">
-                <img [src]="servicio.foto" alt="">
-                <p>{{servicio.foto}}</p>
+                <img src="" alt="">
+                <p></p>
             </div>
             <div>
                 <ul>
@@ -62,7 +62,7 @@
                     </form>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button  mat-raised-button (click)="saveTurno($event)"
+                    <button [disabled]="form.invalid"  mat-raised-button (click)="saveTurno($event)"
                         type="submit">Reservar el turno</button>
                 </mat-card-actions>
             </mat-card>

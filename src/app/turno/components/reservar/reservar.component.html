@@ -1,35 +1,7 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-xs">
-
-            <full-calendar [options]="calendarOptions"></full-calendar>
-
+        <button (click)= "prueba()" mat-raised-button >Disponible</button>
         </div>
-        <div class="col-xs">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>Formulario de Reserva</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <form [formGroup]="form">
-                        <div class="row">
-                            <div class="col">
-                                <mat-form-field class="full-width">
-                                    <input placeholder="Fecha" formControlName="fecha" matInput type="text">
-                                </mat-form-field>
-                            </div>
-                            <div class="col">
-                                <mat-form-field class="full-width">
-                                    <input placeholder="Hora" formControlName="hora" matInput type="text">
-                                </mat-form-field>
-                            </div>
-
-                        </div>
-                    </form>
-                </mat-card-content>
-            </mat-card>
-
-        </div>
-    </div>
+        <label  [ngClass]="{redClass: disponible === true}" for="">No esta disponible</label>
 </div> 
