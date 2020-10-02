@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  url_api : "http://pruebaservi.herokuapp.com",
   fireBase: {
     apiKey: "AIzaSyBtiZ7W1NNnktrFIK4FxTg5mDszfSyo5gA",
     authDomain: "servifacil-e1242.firebaseapp.com",

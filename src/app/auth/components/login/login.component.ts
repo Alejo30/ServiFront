@@ -31,10 +31,10 @@ export class LoginComponent implements OnInit {
       const value = this.form.value;
       this.authService.login(value.email, value.password)
       .then((result) => {
-         const r = result.user.displayName
+         const r = result.user.displayName;
          this.BuscarPer(r);
          console.log(r)
-        this.router.navigate(['/admin'])
+         this.router.navigate(['/admin/']);
       })
       .catch(() =>{
         alert('El Email o la Contraseña son incorrectos')
@@ -52,11 +52,11 @@ export class LoginComponent implements OnInit {
   private BuscarPer(cedula: string){
    this.perSrv.findByCedulaUsingGET(cedula).subscribe(
      persona => {
-       this.persona = persona
+       this.persona = persona;
        if (this.persona.cuentaEmpresario) {
-         alert('Es Empresario')
+         alert('Es Empresario');
        }else{
-        alert('Es un Cliente')
+        alert('Es un Cliente');
        }
 
      }

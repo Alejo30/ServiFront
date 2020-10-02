@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
+import { PersonaControllerService } from '../Backend';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private af: AngularFireAuth) { }
+
+  cedula: string;
+  constructor(private af: AngularFireAuth, private perSrv: PersonaControllerService) { }
 
   createUser(email: string, password: string) {
     return this.af.createUserWithEmailAndPassword(email, password);
@@ -25,11 +28,7 @@ export class AuthService {
     return this.af.authState;
   }
 
-  activeSesion() {
-    const user = firebase.auth().currentUser;
-    if (user != null) {
-      const perID = user.displayName;
-      console.log(perID);
-    }
+  userRol() {
+   return this.af.currentUser;
   }
 }

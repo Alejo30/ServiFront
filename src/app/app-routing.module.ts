@@ -3,7 +3,7 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AdminGuard } from './admin.guard';
 
 import { LayoutComponent } from './layout/layout.component';
-import { ReservaGuard } from './reserva.guard';
+
 
 const routes: Routes = [
   {
