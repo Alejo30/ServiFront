@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { map, tap } from 'rxjs/operators';
-import { Servicio, ServicioControllerService, TurnoControllerService } from 'src/app/core/Backend';
+import { Persona, PersonaControllerService, Servicio, ServicioControllerService, TurnoControllerService } from 'src/app/core/Backend';
 import { AuthService } from 'src/app/core/services/auth.service';
-import esLocale from '@fullcalendar/core/locales/es';
-import { AngularFireAuth } from '@angular/fire/auth';
-import * as firebase from 'firebase';
+
+
 
 @Component({
   selector: 'app-servicio-detail',
@@ -15,6 +13,8 @@ import * as firebase from 'firebase';
 })
 export class ServicioDetailComponent implements OnInit {
 
+
+  persona: Persona;
   servicio: Servicio;
   form: FormGroup;
   fecha: string;
@@ -26,10 +26,9 @@ export class ServicioDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private serviSrv: ServicioControllerService,
               private turnoSrv: TurnoControllerService,
-              private auth: AuthService,
-              private router: Router,
+              private authService: AuthService,
               private formBuilder: FormBuilder,
-              private af: AngularFireAuth) { }
+              ) { }
 
   ngOnInit(): void {
    this.route.params.subscribe((params: Params)=> {
@@ -47,37 +46,33 @@ export class ServicioDetailComponent implements OnInit {
     )
   }
 
-  cargaUsuario(){
-    const user =  firebase.auth().currentUser;
-    if (user != null) {
+  cargaUsuario(event: Event){
+    event.preventDefault();
+    this.authService.userRol().then((user) => {
       this.perID = user.displayName;
-      console.log(this.perID);
-    }
-    this.value = this.form.value;
-    this.value.personaId = this.perID;
-   
+      this.value = this.form.value;
+      this.value.personaId = this.perID;
+      this.saveTurno();
+    });
   }
 
-  saveTurno(event: Event){
-    event.preventDefault();
-    this.cargaUsuario();
+  saveTurno(){
     console.log(this.value);
     if (this.form.valid) {
       alert('El formulario es valido');
-      this.turnoSrv.findTurnoDisponibleUsingGET(this.value.fecha, this.value.hora).subscribe(
+      this.turnoSrv.findTurnoDisponibleUsingGET(this.value.fecha, this.value.hora, this.value.servicioId).subscribe(
         data => {
-          if(data){
-            console.log(data);
+          if (data){
+            alert('El turno ya esta ocupado');
+          }else{
             this.turnoSrv.createTurnoUsingPOST(this.value).subscribe(
-              data => {
+              () => {
                 alert('Se ha registardo su turno');
               }
             );
-          }else{
-            alert('El turno ya esta ocupado')
           }
-          }
-      )
+        }
+      );
     }else{
       alert('El formulario es invalido');
     }

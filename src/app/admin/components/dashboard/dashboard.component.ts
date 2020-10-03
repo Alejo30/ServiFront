@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { EmpresaControllerService, Persona, PersonaControllerService, TurnoControllerService } from 'src/app/core/Backend';
+import { Empresa, EmpresaControllerService, Persona, PersonaControllerService, TurnoControllerService } from 'src/app/core/Backend';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -13,7 +13,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class DashboardComponent {
   /** Based on the screen size, switch from standard to one column per row */
 
-  persona: Persona;
+  persona: any;
+  empresa: Empresa[];
   id: string;
   visible: boolean;
   turnos = [];
@@ -58,6 +59,7 @@ export class DashboardComponent {
             this.persona = rest;
             console.log(rest);
             this.fetchServicios();
+            this.fetchTurnos();
           }
         );
       });
@@ -72,6 +74,7 @@ export class DashboardComponent {
           }else{
             alert('Tiene')
             this.visible= true;
+            this.empresa = rest;
           }
           console.log(rest);
         }
