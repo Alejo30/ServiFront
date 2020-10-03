@@ -34,7 +34,7 @@ export class DashboardComponent {
       return [
         { title: 'Perfil', cols: 2, rows: 1 },
         { title: 'Servicios', cols: 1, rows: 1},
-        { title: 'Turnos', cols: 1, rows: 2 },
+        { title: 'Turnos', cols: 5, rows: 2 },
       ];
     })
   );
@@ -69,10 +69,8 @@ export class DashboardComponent {
       this.empSrv.findByIdPersonaUsingGET(this.id).subscribe(
         rest => {
           if (rest) {
-            alert('no Tiene empresa');
             this.visible = false;
           }else{
-            alert('Tiene')
             this.visible= true;
             this.empresa = rest;
           }

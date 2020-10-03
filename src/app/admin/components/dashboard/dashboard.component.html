@@ -2,7 +2,7 @@
   <h1 class="mat-h1">Dashboard</h1>
   <div class="row">
     <div class="col-xs">
-      <mat-card>
+      <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>Perfil</mat-card-title>
         </mat-card-header>
@@ -26,7 +26,7 @@
   <br>
   <div class="row">
     <div class="col-xs" *ngIf="visible; else user">
-      <mat-card>
+      <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>Servicios</mat-card-title>
         </mat-card-header>
@@ -47,12 +47,12 @@
       </mat-card>
     </div>
     <br>
-    <div class="col-xs">
-      <mat-card>
+    <div class="col-xs-12 col-md-4">
+      <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>Turnos</mat-card-title>
         </mat-card-header>
-        <mat-card-content >
+        <mat-card-content class="dashboard-card-content" >
           <table mat-table [dataSource]="turnos" class="mat-elevation-z8 turnos-table">
             <ng-container matColumnDef="fecha">
               <th mat-header-cell *matHeaderCellDef>Fecha</th>
@@ -65,8 +65,8 @@
             <ng-container matColumnDef="acciones">
               <th mat-header-cell *matHeaderCellDef> Acciones </th>
               <td mat-cell *matCellDef="let turno">
-               <!--  <button mat-raised-button [routerLink]="['edit', servicio.id]">Editar</button>
-                <button mat-raised-button color="warn" (click)="deleteProduct(servicio.id)">Eliminar</button> -->
+                <button mat-raised-button >Editar</button>
+                <button mat-raised-button color="warn" >Eliminar</button>
               </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -74,12 +74,10 @@
           </table>
         </mat-card-content>
       </mat-card>
-
-
     </div>
     <div class="col-xs">
       <ng-template #user>
-        <mat-card>
+        <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>Se parte de la Familia de ServiFacil</mat-card-title>
           </mat-card-header>
