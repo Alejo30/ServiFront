@@ -1,3 +1,7 @@
 .app-footer{
     position: absolute;
 }
+
+.container-fluid{
+    background-color: #e8e8e8
+}

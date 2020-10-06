@@ -1,0 +1,15 @@
+.container{
+    font-family: 'Muli', sans-serif;
+    background-color: white;
+}
+
+.titulo{
+    margin-top: 20px;
+    font-family: 'Muli', sans-serif;
+}
+
+.description{
+    margin-top: 10px;
+    font-family: 'Muli', sans-serif;
+}
+

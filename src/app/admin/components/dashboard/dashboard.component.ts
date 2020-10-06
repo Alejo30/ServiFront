@@ -14,7 +14,7 @@ export class DashboardComponent {
   /** Based on the screen size, switch from standard to one column per row */
 
   persona: any;
-  empresa: Empresa[];
+  empresa: any;
   id: string;
   visible: boolean;
   turnos = [];
@@ -71,7 +71,7 @@ export class DashboardComponent {
           if (rest) {
             this.visible = false;
           }else{
-            this.visible= true;
+            this.visible = true;
             this.empresa = rest;
           }
           console.log(rest);

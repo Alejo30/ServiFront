@@ -33,9 +33,13 @@ body {
 
 body {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: 'Muli', sans-serif;
 }
 
 img {
     max-width: 100%;
+}
+
+.mat-typography{
+    font-family: 'Muli', sans-serif; 
 }

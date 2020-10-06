@@ -25,7 +25,7 @@
   </div>
   <br>
   <div class="row">
-    <div class="col-xs" *ngIf="visible; else user">
+    <div class="col-xs" *ngIf=" !visible; else user">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>Servicios</mat-card-title>
@@ -79,11 +79,10 @@
       <ng-template #user>
         <mat-card class="dashboard-card">
           <mat-card-header>
-            <mat-card-title>Se parte de la Familia de ServiFacil</mat-card-title>
+            <mat-card-title>¡No tienes Servicios aún!</mat-card-title>
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
-            <h1>Empieza a mostrar tus servicios en Servifacil</h1>
-            <button mat-raised-button> Registrar mi Empresa</button>
+            <h1>Crea un servicio desde el menú izquierdo</h1>
           </mat-card-content>
         </mat-card>
       </ng-template>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicioControllerService } from 'src/app/core/Backend';
+import { PersonaControllerService, ServicioControllerService } from 'src/app/core/Backend';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 
 @Component({
@@ -9,14 +10,31 @@ import { ServicioControllerService } from 'src/app/core/Backend';
 })
 export class ServicioListComponent implements OnInit {
 
+  persona: any;
   servicios = [];
-
+  id: string;
   displayedColumns: string[] =['nombre', 'precio', 'acciones'];
   
-  constructor(private serviSrv: ServicioControllerService) { }
+  constructor(private serviSrv: ServicioControllerService,
+              private authService: AuthService,
+              private perSrv: PersonaControllerService,) { }
 
   ngOnInit(): void {
-    this.fetchServicios();
+    this.getP();
+  }
+
+  getP(){
+    this.authService.userRol().then((user)=> {
+      this.id = user.displayName;
+      console.log(user.displayName);
+      this.perSrv.findByCedulaUsingGET(this.id).subscribe(
+        rest => {
+          this.persona = rest;
+          console.log(rest);
+          this.fetchServicios();
+        }
+      );
+    });
   }
 
   fetchServicios(){

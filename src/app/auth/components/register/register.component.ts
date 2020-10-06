@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
 import { Direccion, EmpresaControllerService, PersonaControllerService } from 'src/app/core/Backend';
 import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
-import { AuthService } from "./../../../core/services/auth.service";
+import { AuthService } from './../../../core/services/auth.service';
 
 
 
@@ -25,11 +25,11 @@ export class RegisterComponent implements OnInit {
   fotoBase64: any;
   value: any;
   isEditable = false;
-  direccion: any ={
+  direccion: any = {
     callePrincipal: '',
     calleSecundaria: '',
     numero: '',
-  } 
+  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,15 +48,15 @@ export class RegisterComponent implements OnInit {
     event.preventDefault();
     if (this.form.valid) {
       this.isEditable = true;
-      console.log(this.isEditable)
+      console.log(this.isEditable);
       this.value = this.form.value;
       this.authService.createUser(this.value.correo, this.value.password)
-      .then((result)=>{
+      .then((result) => {
         result.user.updateProfile({
           displayName: this.value.cedula
-        }).catch(error =>{
-          console.error(error)
-        })
+        }).catch(error => {
+          console.error(error);
+        });
 
         /* const configuracion = {
           url: 'http://localhost:4200/home'
@@ -68,13 +68,12 @@ export class RegisterComponent implements OnInit {
 
         this.authService.logout();
         alert('Bienvenido' + this.value.nombre + 'Debe Realizar el proceso de verificacion') */
-        this.openDialog()
-       
+        this.openDialog();
+
       })
-      .catch(() =>{
-        alert('No se ha podido Registrar')
+      .catch(() => {
+        alert('No se ha podido Registrar');
       });
-     
     }
   }
 
@@ -82,20 +81,19 @@ export class RegisterComponent implements OnInit {
      if (this.formE.valid) {
       const empresa = this.formE.value;
       this.direccion = this.formD.value;
-      empresa.direccion =  this.direccion
-       
-      empresa.personaId = this.value.cedula
-      console.log(empresa)
-      console.log(this.direccion)
+      empresa.direccion =  this.direccion;
+      empresa.personaId = this.value.cedula;
+      console.log(empresa);
+      console.log(this.direccion);
       this.empSrv.createEmpresaUsingPOST(empresa).subscribe(data => {
         console.log(data);
-      })   
-      console.log(empresa.personaId)
-      console.log(empresa)
-     
+      });
+      console.log(empresa.personaId);
+      console.log(empresa);
+      this.router.navigate(['/auth/login']);
     }else{
       console.log('No es valido');
-    }    
+    }
   }
 
   openDialog(): void {
@@ -105,15 +103,13 @@ export class RegisterComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(res => {
       console.log(res);
-      if (res) {  
-        console.log('Iniciando')
-        this.value.cuentaEmpresario = this.emp = true
-        this.RegisPerson(this.value)
-       
+      if (res) {
+        console.log('Iniciando');
+        this.value.cuentaEmpresario = this.emp = true;
+        this.RegisPerson(this.value);
       }else{
-        
-        this.RegisPerson(this.value)
-        this.router.navigate(['/auth/login'])
+        this.RegisPerson(this.value);
+        this.router.navigate(['/auth/login']);
       }
     })
   }
@@ -141,8 +137,7 @@ export class RegisterComponent implements OnInit {
       callePrincipal: ['', Validators.required],
       calleSecundaria: ['', Validators.required],
       numero: ['', Validators.required]
-    })
-    
+    });
   }
 
   public picked(event){
@@ -156,10 +151,9 @@ export class RegisterComponent implements OnInit {
 
   private RegisPerson(value){
     this.perSrv.createPersonaUsingPOST(value).subscribe(
-      persona =>{
+      persona => {
         console.log(persona);
       }
-    )}
- 
-
+    );
+  }
 }
