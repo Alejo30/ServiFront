@@ -1,3 +1,4 @@
+<div class="container">
 <a mat-raised-button routerLink ='/admin/create-servicio'>Agregar un nuevo Servicio ></a>
 <table mat-table [dataSource]="servicios" class="mat-elevation-z8 servicios-table">
     <ng-container matColumnDef="nombre">
@@ -18,3 +19,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+</div>

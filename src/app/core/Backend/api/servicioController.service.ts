@@ -21,12 +21,12 @@ import { Servicio } from '../model/servicio';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
-import { environment } from "../../../../environments/environment";
+
 
 @Injectable()
 export class ServicioControllerService {
 
-    protected basePath = environment.url_api;
+    protected basePath = '//pruebaservi.herokuapp.com';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

@@ -1,4 +1,5 @@
-<mat-card>
+<div class="container">
+<mat-card class="card">
     <mat-card-header>
         <mat-card-title>{{servicio.nombre | uppercase}}</mat-card-title>
         <mat-card-subtitle>{{servicio.precio | currency}}</mat-card-subtitle>
@@ -13,3 +14,5 @@
         <a mat-raised-button color="primary" [routerLink]="['/servicio', servicio.id ]" >Ver detalle</a>
     </mat-card-actions>
 </mat-card>
+    
+</div>

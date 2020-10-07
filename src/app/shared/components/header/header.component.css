@@ -5,11 +5,12 @@ nav>a {
 }
 
 nav>a.active {
-    background-color: blue;
+    background-color: #150485;
 }
 
 .header {
-    background-color: #0f3460;
+    background-color: #821752;
+    
 }
 
 .header-row {

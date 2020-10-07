@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { Empresa, EmpresaControllerService, Persona, PersonaControllerService, TurnoControllerService } from 'src/app/core/Backend';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Empresa, EmpresaControllerService, Persona, PersonaControllerService, ServicioControllerService, TurnoControllerService } from 'src/app/core/Backend';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -13,12 +12,13 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class DashboardComponent {
   /** Based on the screen size, switch from standard to one column per row */
 
-  persona: any;
-  empresa: any;
-  id: string;
+  persona: Persona;
+  empresa: Empresa;
+  servicios = [];
   visible: boolean;
   turnos = [];
-  displayedColumns: string[] =['fecha', 'hora', 'acciones'];
+  displayedColumnsT: string[] = ['fecha', 'hora', 'acciones'];
+  displayedColumnsS: string[] = ['nombre', 'precio'];
 
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -43,6 +43,7 @@ export class DashboardComponent {
               private perSrv: PersonaControllerService,
               private empSrv: EmpresaControllerService,
               private turnSrv: TurnoControllerService,
+              private servSrv: ServicioControllerService,
               private authService: AuthService) {}
 
     ngOnInit(): void {
@@ -51,36 +52,46 @@ export class DashboardComponent {
 
 
     getP(){
-      this.authService.userRol().then((user)=> {
-        this.id = user.displayName;
+      this.authService.userRol().then((user) => {
+        const id = user.displayName;
         console.log(user.displayName);
-        this.perSrv.findByCedulaUsingGET(this.id).subscribe(
+        this.perSrv.findByCedulaUsingGET(id).subscribe(
           rest => {
             this.persona = rest;
             console.log(rest);
-            this.fetchServicios();
-            this.fetchTurnos();
+            this.fetchEmpresa(id);
+            this.fetchTurnos(id);
           }
         );
       });
     }
 
-    fetchServicios(){
-      this.empSrv.findByIdPersonaUsingGET(this.id).subscribe(
+    fetchEmpresa(id: string){
+      this.empSrv.findByIdPersonaUsingGET(id).subscribe(
         rest => {
+          this.empresa = rest;
           if (rest) {
             this.visible = false;
+            console.log(this.empresa);
           }else{
             this.visible = true;
-            this.empresa = rest;
+            console.log(this.empresa);
+            const empId = this.empresa.ruc;
+            this.fetchServicios(empId);
           }
-          console.log(rest);
         }
-      )
+      );
     }
 
-    fetchTurnos(){
-      this.turnSrv.findTurnosPersonaUsingGET(this.id).subscribe(
+    fetchServicios(id: string){
+      this.servSrv.findServiciosEmpresaUsingGET(id).subscribe(
+        servicios => {
+          this.servicios = servicios;
+      })
+    }
+
+    fetchTurnos(id: string){
+      this.turnSrv.findTurnosPersonaUsingGET(id).subscribe(
         turnos => {
           this.turnos = turnos;
         }

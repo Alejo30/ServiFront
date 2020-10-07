@@ -1,4 +1,9 @@
 .servicios-table {
     width: 98%;
-    margin: 2%;
+    margin: 2%; 
+}
+
+.container {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }

@@ -21,12 +21,12 @@ import { Empresa } from '../model/empresa';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
-import { environment } from "../../../../environments/environment";
+
 
 @Injectable()
 export class EmpresaControllerService {
 
-    protected basePath = environment.url_api;
+    protected basePath = '//pruebaservi.herokuapp.com';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -196,9 +196,9 @@ export class EmpresaControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findByIdPersonaUsingGET(cedula: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Empresa>>;
-    public findByIdPersonaUsingGET(cedula: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Empresa>>>;
-    public findByIdPersonaUsingGET(cedula: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Empresa>>>;
+    public findByIdPersonaUsingGET(cedula: string, observe?: 'body', reportProgress?: boolean): Observable<Empresa>;
+    public findByIdPersonaUsingGET(cedula: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Empresa>>;
+    public findByIdPersonaUsingGET(cedula: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Empresa>>;
     public findByIdPersonaUsingGET(cedula: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (cedula === null || cedula === undefined) {
@@ -220,7 +220,7 @@ export class EmpresaControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<Empresa>>('get',`${this.basePath}/empresa/${encodeURIComponent(String(cedula))}`,
+        return this.httpClient.request<Empresa>('get',`${this.basePath}/empresa/${encodeURIComponent(String(cedula))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
