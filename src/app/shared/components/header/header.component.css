@@ -5,14 +5,23 @@ nav>a {
 }
 
 nav>a.active {
-    background-color: #150485;
+    background-color: #4a3f35;
 }
 
 .header {
-    background-color: #821752;
-    
+    background-color: #e85D04;
 }
 
 .header-row {
     width: 100%;
 }
+
+.header__profile{
+    margin-right:8px;
+        display: flex;
+        align-items: center;
+}
+
+.header__profile>a{
+    margin: 10px;
+} 

@@ -17,6 +17,7 @@ export class ServicioFormComponent implements OnInit {
   id: string;
   persona: Persona;
   empresa: Empresa;
+  newServicio: any;
   constructor(
     private formBuilder: FormBuilder,
     private serviSrv: ServicioControllerService,
@@ -25,64 +26,60 @@ export class ServicioFormComponent implements OnInit {
     private router: Router,
     private authService: AuthService
   ) { 
-    this.buildForm();
+
    }
 
   ngOnInit(): void {
     this.getP();
+    this.buildForm();
   }
 
   getP(){
     this.authService.userRol().then((user) => {
       this.id  = user.displayName;
-      console.log(user.displayName);
       this.perSrv.findByCedulaUsingGET(this.id).subscribe(
         rest => {
           this.persona = rest;
-          console.log(rest);
           this.fetchEmpresa(this.id);
-          console.log('getP');
         }
       );
     });
   }
 
   fetchEmpresa(id: string){
-    console.log(id);
     this.empSrv.findByIdPersonaUsingGET(id).subscribe(
       rest => {
         this.empresa = rest;
         if (rest) {
-          console.log(this.empresa);
-          console.log(rest);
+          this.empId = this.empresa.ruc;
         }else{
           console.log(this.empresa);
-          this.empId = this.empresa.ruc;
-          const servicio = this.form.value;
-          servicio.empresaId = this.empId;
-          console.log('Empresa True');
+          console.log('Empresa False');
         }
       }
     );
   }
 
-  saveServicio(){
+  saveServicio(event: Event){
+    event.preventDefault();
+    this.newServicio = this.form.value;
+    this.newServicio.empresaId = this.empId;
     if (this.form.valid) {
-      /* this.serviSrv.createServicioUsingPOST(servicio)
+      this.serviSrv.createServicioUsingPOST(this.newServicio)
       .subscribe((newServicio) => {
         console.log(newServicio);
         this.router.navigate(['./admin/servicios']);
-      }); */
+      });
     }
   }
 
   private buildForm(){
     this.form = this.formBuilder.group({
-      nombre: ['', [Validators.required]],
-      descripcion: ['', [Validators.required]],
-      precio: ['', [Validators.required]],
+      nombre: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      precio: ['', Validators.required],
       foto: this.fotoBase64,
-      empresaId: [this.empId, [Validators.required]],
+      empresaId: [this.empId],
     })
   }
 

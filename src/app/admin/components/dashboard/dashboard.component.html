@@ -1,53 +1,49 @@
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
   <div class="row">
-    <div class="col-xs">
+    <div class="col-xs center-xs">
       <mat-card class="dashboard-card">
         <mat-card-header>
-          <mat-card-title>Perfil</mat-card-title>
+          <mat-card-title></mat-card-title>
+          <mat-card-subtitle></mat-card-subtitle>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>
-            <h1>Cedula: </h1>{{persona.cedula}}
-          </div>
-          <div>
-            <h1>Nombre: </h1> {{persona.nombre | uppercase}}
-          </div>
-          <div>
-            <h1>Apellido: </h1>{{persona.apellido | uppercase}}
-          </div>
-          <div>
-            <h1>Correo: </h1>{{persona.correo}}
-          </div>
+          <h1>Bienvenido  {{usuario | uppercase}}</h1>
+          <div class="avatar center-xs"></div>
         </mat-card-content>
+        <mat-card-actions>
+        </mat-card-actions>
       </mat-card>
     </div>
   </div>
   <br>
   <div class="row">
-    <div class="col-xs" *ngIf=" !visible; else user">
+    <div class="col-xs-6 center-xs" *ngIf=" visible; else user">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>Servicios</mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <table mat-table [dataSource]="servicios" class="mat-elevation-z8 turnos-table">
+          <table mat-table [dataSource]="servicios" class="mat-elevation-z8 servicios-table">
             <ng-container matColumnDef="nombre">
-              <th mat-header-cell *matHeaderCellDef>Fecha</th>
+              <th mat-header-cell *matHeaderCellDef>Nombre</th>
               <td mat-cell *matCellDef="let servicio">{{servicio.nombre}}</td>
             </ng-container>
             <ng-container matColumnDef="precio">
-              <th mat-header-cell *matHeaderCellDef> Hora </th>
+              <th mat-header-cell *matHeaderCellDef> Precio </th>
               <td mat-cell *matCellDef="let servicio"> {{servicio.precio}} </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumnsS"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumnsS;"></tr>
           </table>
         </mat-card-content>
+        <mat-card-action>
+          <button mat-raised-button color="primary" routerLink= '/admin/servicios'>Administrar Servicios</button>
+        </mat-card-action>
       </mat-card>
     </div>
     <br>
-    <div class="col-xs-12 col-md-4">
+    <div class="col-xs-6 center-xs">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>Turnos</mat-card-title>
@@ -65,7 +61,7 @@
             <ng-container matColumnDef="acciones">
               <th mat-header-cell *matHeaderCellDef> Acciones </th>
               <td mat-cell *matCellDef="let turno">
-                <button mat-raised-button >Editar</button>
+                <button mat-raised-button color="primary" >Editar</button>
                 <button mat-raised-button color="warn" >Eliminar</button>
               </td>
             </ng-container>

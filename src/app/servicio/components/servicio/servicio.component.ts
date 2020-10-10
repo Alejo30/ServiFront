@@ -8,12 +8,11 @@ import { Servicio } from 'src/app/core/Backend';
 })
 export class ServicioComponent implements OnInit {
 
-  @Input() servicio: Servicio
+  @Input() servicio: Servicio;
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  
 
 }

@@ -13,6 +13,7 @@ export class DashboardComponent {
   /** Based on the screen size, switch from standard to one column per row */
 
   persona: Persona;
+  usuario: string;
   empresa: Empresa;
   servicios = [];
   visible: boolean;
@@ -61,6 +62,8 @@ export class DashboardComponent {
             console.log(rest);
             this.fetchEmpresa(id);
             this.fetchTurnos(id);
+            this.usuario = this.persona.nombre;
+            console.log(this.usuario)
           }
         );
       });
@@ -71,13 +74,13 @@ export class DashboardComponent {
         rest => {
           this.empresa = rest;
           if (rest) {
+            this.visible = true;
+            const empId = this.empresa.ruc;
+            console.log(this.empresa);
+            this.fetchServicios(empId);
+          }else{
             this.visible = false;
             console.log(this.empresa);
-          }else{
-            this.visible = true;
-            console.log(this.empresa);
-            const empId = this.empresa.ruc;
-            this.fetchServicios(empId);
           }
         }
       );

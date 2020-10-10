@@ -7,6 +7,24 @@
                 <a mat-button routerLink="/contact" routerLinkActive="active">Empresas</a>
                 <a mat-button routerLink="/contact" routerLinkActive="active">Contacto</a>
             </nav>
+            <a class="" *ngIf="visible; else default" routerLink="/admin" mat-raised-button>
+                <mat-icon>account_circle</mat-icon>
+                {{user}}
+            </a>
+            <ng-template #default>
+                <div class="header__profile">
+                    <a routerLink="/auth/login" mat-raised-button>
+                        <mat-icon>account_circle</mat-icon>
+                        Iniciar Sesión
+                    </a>
+                    <a routerLink="/auth/register" mat-raised-button>
+                        <mat-icon>person_add</mat-icon>
+                        Registrarte
+                    </a>
+                </div>
+                
+                
+            </ng-template>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>

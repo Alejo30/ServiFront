@@ -99,7 +99,7 @@ export class RegisterComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '350px',
-      data: 'Gracias por Elegirnos'
+      data: '<h3>¡Bienvenido a la Plataforma de ServiFacil!</h3> <p>Hemos guardado tus datos.</p> <p>Si quieres poner tus servicios en linea, puedes hacerlo a continuación, solo debes registrar tu negocio.</p><p>¿Desea hacerlo?</p>'
     });
     dialogRef.afterClosed().subscribe(res => {
       console.log(res);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PersonaControllerService, ServicioControllerService } from 'src/app/core/Backend';
+import { Empresa, EmpresaControllerService, PersonaControllerService, ServicioControllerService } from 'src/app/core/Backend';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 
@@ -12,42 +12,62 @@ export class ServicioListComponent implements OnInit {
 
   persona: any;
   servicios = [];
+  empresa: Empresa;
   id: string;
+  empId: string;
   displayedColumns: string[] =['nombre', 'precio', 'acciones'];
   
   constructor(private serviSrv: ServicioControllerService,
               private authService: AuthService,
-              private perSrv: PersonaControllerService,) { }
+              private perSrv: PersonaControllerService,
+              private empSrv: EmpresaControllerService,) { }
 
   ngOnInit(): void {
     this.getP();
   }
 
   getP(){
-    this.authService.userRol().then((user)=> {
+    this.authService.userRol().then((user) => {
       this.id = user.displayName;
       console.log(user.displayName);
       this.perSrv.findByCedulaUsingGET(this.id).subscribe(
         rest => {
           this.persona = rest;
           console.log(rest);
-          this.fetchServicios();
+          this.fetchEmpresa(this.id);
+         
         }
       );
     });
   }
 
-  fetchServicios(){
-    this.serviSrv.listServiciosUsingGET()
-    .subscribe(servicios => {
-      this.servicios = servicios;
-    });
+  fetchEmpresa(id: string){
+    this.empSrv.findByIdPersonaUsingGET(id).subscribe(
+      rest => {
+        this.empresa = rest;
+        if (rest) {
+          this.empId = this.empresa.ruc;
+          this.fetchServicios(this.empId);
+        }else{
+          console.log(this.empresa);
+          console.log('Empresa False');
+        }
+      }
+    );
+  }
+
+  fetchServicios(id: string){
+    this.serviSrv.findServiciosEmpresaUsingGET(id).subscribe(
+      servicios => {
+          this.servicios = servicios;
+      }
+    )
   }
 
   deleteProduct(id: string){
     this.serviSrv.deleteServicioUsingDELETE(id).subscribe(
       data => {
-        this.fetchServicios();
+       /*  this.fetchServicios(); */
         console.log(data);
         window.alert('Eliminado');
       }

@@ -4,10 +4,11 @@
 
 .dashboard-card {
   position: relative;
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  text-align: center;
 }
 
 .more-button {
@@ -18,9 +19,26 @@
 
 .dashboard-card-content {
   text-align: center;
+  align-content: center;
 }
 
-.turnos-table {
+.turnos-table{
   width: 98%;
-  margin: 5%;
+  margin: 2%; 
 }
+
+.servicios-table{
+  width: 98%;
+  margin: 2%; 
+}
+
+.avatar{
+  background-image: url('https://material.angular.io/assets/img/examples/shiba2.jpg');
+  height: 200px;
+  width: 200px;
+  background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 80%;
+    background-size: 100% auto;
+}
+

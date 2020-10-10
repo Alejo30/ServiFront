@@ -2,9 +2,11 @@
 <br>
 <div class="row center-xs">
     <form [formGroup]="form" (ngSubmit)="login($event)">
-        <mat-card>
+        <mat-card class="login">
             <mat-card-header>
                 <mat-card-title>Login</mat-card-title>
+                <br>
+                <img class="img" src="../../../../assets/images/user-icon.png" alt="user icon">
             </mat-card-header>
             <mat-card-content>
                 <div class="row">
@@ -29,6 +31,4 @@
         </mat-card>
     </form>
 </div>
-
 </div>
-
