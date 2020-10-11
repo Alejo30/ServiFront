@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Direccion, EmpresaControllerService, PersonaControllerService } from 'src/app/core/Backend';
 import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
@@ -30,6 +31,12 @@ export class RegisterComponent implements OnInit {
     calleSecundaria: '',
     numero: '',
   };
+  image$: Observable<any>;
+  task: any;
+  file: any;
+  name: any;
+  fileRef: any;
+  url: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,6 +51,11 @@ export class RegisterComponent implements OnInit {
     this.buildForm();
   }
 
+  uploadFile(event){
+    this.file = event.target.files[0];
+    this.name = event.target.files[0].name;
+  }
+
   register(event: Event){
     event.preventDefault();
     if (this.form.valid) {
@@ -53,21 +65,11 @@ export class RegisterComponent implements OnInit {
       this.authService.createUser(this.value.correo, this.value.password)
       .then((result) => {
         result.user.updateProfile({
-          displayName: this.value.cedula
+          displayName: this.value.cedula,
+          photoURL: this.value.foto
         }).catch(error => {
           console.error(error);
         });
-
-        /* const configuracion = {
-          url: 'http://localhost:4200/home'
-        }
-
-        result.user.sendEmailVerification(configuracion).catch(error =>{
-          console.error(error)
-        })
-
-        this.authService.logout();
-        alert('Bienvenido' + this.value.nombre + 'Debe Realizar el proceso de verificacion') */
         this.openDialog();
 
       })

@@ -11,11 +11,9 @@
                         <input placeholder="Nombre" formControlName="nombre" matInput type="text">
                     </mat-form-field>
                 </div>
-                <div class="col-xs">
-                    <label for="">Foto del Servicio </label>
-                    <input (change)="picked($event)" type="file" formControlName="foto"/>
-                    <br>
-                    <img [src]="fotoBase64" width="auto" height="200pxs">
+                <div class="col-xs">     
+                    <input type="file" (change)="uploadFile($event)">
+                    <img *ngIf="(image$ | async) as image" [src]="image" alt="">
                 </div>
             </div>
             <div class="row">

@@ -1,19 +1,127 @@
-<mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <form class="form" [formGroup]="form" (ngSubmit)="savePerson($event)">
+                <mat-card>
+                  <mat-card-title>Tu Perfil</mat-card-title>
+                  <mat-card-subtitle></mat-card-subtitle>
+                    <mat-card-content>
+                      <div class="row">
+                        <div class="col-xs-4 center-xs">
+                          <div mat-card-avatar class="example-header-image"></div>
+                          <input type="file" (change)="uploadFile($event)">
+                          <img *ngIf="(image$ | async) as image" [src]="image" alt="">
+                        </div>
+                        <div class="col-xs-8">
+                          <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <input placeholder="Cédula" formControlName="cedula" matInput type="text">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <input placeholder="Nombre" formControlName="nombre" matInput type="text">
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <input placeholder="Apellido" formControlName="apellido" matInput type="text">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <input placeholder="Fecha de Nacimiento" formControlName="fechaNacimiento" matInput
+                                        type="date">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xs">
+                                <mat-form-field class="full-width">
+                                    <input placeholder="Email" formControlName="correo" matInput type="email">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                    <button mat-raised-button>Cambiar contraseña</button>
+                            </div>
+                            <div class="col">
+                                <button mat-raised-button color="warn">Eliminar Cuenta</button>
+                            </div>
+                        </div>
+                        </div>
+                      </div>
+                       
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button [disabled]="form.invalid" color="primary" mat-raised-button type="submit">Guardar Cambios de Tu Perfil</button>
+                    </mat-card-actions>
+                </mat-card>
+            </form>
+        </div>
+       
+    </div>
+ <div class="row">
+     <div class="col-xs-12">
+        <form class="form" [formGroup]="formE" (ngSubmit)="saveEmp()">
+            <mat-card>
+                <mat-card-title>Datos de la Empresa</mat-card-title>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width">
+                                <input placeholder="RUC" formControlName="ruc" matInput type="text">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width">
+                                <input placeholder="Nombre" formControlName="nombre" matInput type="text">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <form [formGroup]="formD">
+                        <div class="row">
+                            <label for="">Direccion</label>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <input placeholder="Calle Principal" formControlName="callePrincipal" matInput
+                                        type="text">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <input placeholder="Calle Secundaria" formControlName="calleSecundaria" matInput
+                                        type="text">
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <input placeholder="Numero de Casa" formControlName="numero" matInput type="text">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button [disabled]="form.invalid" color="primary" mat-raised-button type="submit"> Guardar Cambios de tu Empresa</button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+        <ng-template #emp>
+            <h1>Registra tu empresa</h1>
+        </ng-template>
+     </div>
+ </div>
+ 
+
+</div>

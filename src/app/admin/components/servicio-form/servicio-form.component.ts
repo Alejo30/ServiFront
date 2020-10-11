@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Empresa, EmpresaControllerService, Persona, PersonaControllerService, ServicioControllerService } from 'src/app/core/Backend';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { AngularFireStorage } from "@angular/fire/storage";
+import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-servicio-form',
@@ -18,23 +21,36 @@ export class ServicioFormComponent implements OnInit {
   persona: Persona;
   empresa: Empresa;
   newServicio: any;
+  image$: Observable<any>;
+  task: any;
+  file: any;
+  name: any;
+  fileRef: any;
+  url: any;
+
   constructor(
     private formBuilder: FormBuilder,
     private serviSrv: ServicioControllerService,
     private perSrv: PersonaControllerService,
     private empSrv: EmpresaControllerService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private storage: AngularFireStorage
   ) { 
 
    }
 
   ngOnInit(): void {
-    this.getP();
+    this.getUser();
     this.buildForm();
   }
 
-  getP(){
+  uploadFile(event){
+    this.file = event.target.files[0];
+    this.name = event.target.files[0].name;
+  }
+
+  getUser(){
     this.authService.userRol().then((user) => {
       this.id  = user.displayName;
       this.perSrv.findByCedulaUsingGET(this.id).subscribe(
@@ -64,13 +80,25 @@ export class ServicioFormComponent implements OnInit {
     event.preventDefault();
     this.newServicio = this.form.value;
     this.newServicio.empresaId = this.empId;
-    if (this.form.valid) {
-      this.serviSrv.createServicioUsingPOST(this.newServicio)
-      .subscribe((newServicio) => {
-        console.log(newServicio);
-        this.router.navigate(['./admin/servicios']);
-      });
-    }
+    this.fileRef = this.storage.ref(this.name);
+    this.task = this.storage.upload(this.name, this.file);
+    this.task.snapshotChanges().pipe(
+      finalize(() => {
+          this.image$ = this.fileRef.getDownloadURL();
+          this.image$.subscribe(url => {
+          this.newServicio.foto = url;
+          console.log(url);
+          if (this.form.valid) {
+            this.serviSrv.createServicioUsingPOST(this.newServicio)
+            .subscribe((newServicio) => {
+              console.log('Se ha guardado y ha finalizado la subida de la imagen');
+              console.log(newServicio);
+              this.router.navigate(['./admin/servicios']);
+            });
+          }
+        });
+      })
+    ).subscribe();
   }
 
   private buildForm(){
@@ -78,18 +106,9 @@ export class ServicioFormComponent implements OnInit {
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
       precio: ['', Validators.required],
-      foto: this.fotoBase64,
+      foto: [this.url],
       empresaId: [this.empId],
     })
   }
-
-  public picked(event){
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.fotoBase64 = reader.result;
-    };
-  }
-
+ 
 }

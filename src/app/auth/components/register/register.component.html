@@ -13,8 +13,8 @@
                         </div>
                         <div class="col">
                             <label for="">Foto de Perfil: </label>
-                            <input (change)="picked($event)" type="file" formControlName="foto" />
-                            <img [src]="fotoBase64" width="auto" height="200pxs">
+                            <input type="file" (change)="uploadFile($event)">
+                            <img *ngIf="(image$ | async) as image" [src]="image" alt="">  
                         </div>
                     </div>
                     <div class="row">

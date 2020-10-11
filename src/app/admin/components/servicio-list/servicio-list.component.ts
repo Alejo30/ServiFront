@@ -16,7 +16,7 @@ export class ServicioListComponent implements OnInit {
   id: string;
   empId: string;
   displayedColumns: string[] =['nombre', 'precio', 'acciones'];
-  
+
   constructor(private serviSrv: ServicioControllerService,
               private authService: AuthService,
               private perSrv: PersonaControllerService,
@@ -35,7 +35,6 @@ export class ServicioListComponent implements OnInit {
           this.persona = rest;
           console.log(rest);
           this.fetchEmpresa(this.id);
-         
         }
       );
     });
@@ -67,9 +66,9 @@ export class ServicioListComponent implements OnInit {
   deleteProduct(id: string){
     this.serviSrv.deleteServicioUsingDELETE(id).subscribe(
       data => {
-       /*  this.fetchServicios(); */
-        console.log(data);
-        window.alert('Eliminado');
+       this.fetchServicios(this.empId);
+       console.log(data);
+       window.alert('Eliminado');
       }
     )
   }

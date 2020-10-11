@@ -5,7 +5,9 @@
         <mat-card-subtitle>{{servicio.precio | currency}}</mat-card-subtitle>
     </mat-card-header>
     <div class="crop-image">
+
         <img src="../assets/images/imagen 1.jpg" alt="">
+        <img [src]="servicio.foto" alt="">
     </div>
     <mat-card-content>
         <p>{{servicio.descripcion | slice:0:15}}</p>
