@@ -12,6 +12,7 @@ import { ServicioFormComponent } from './components/servicio-form/servicio-form.
 import { ServicioListComponent } from './components/servicio-list/servicio-list.component';
 import { ServicioEditComponent } from './components/servicio-edit/servicio-edit.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { PrimeModule } from '../prime/prime.module';
 
 
 
@@ -23,7 +24,8 @@ import { PerfilComponent } from './components/perfil/perfil.component';
     LayoutModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    PrimeModule
   ]
 })
 export class AdminModule { }

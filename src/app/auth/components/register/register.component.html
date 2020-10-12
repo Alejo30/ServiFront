@@ -8,14 +8,10 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width">
-                                <input placeholder="Cédula" formControlName="cedula" matInput type="text">
-                            </mat-form-field>
+                                <input placeholder="Cédula" formControlName="cedula" matInput type="text">       
+                           </mat-form-field>
                         </div>
-                        <div class="col">
-                            <label for="">Foto de Perfil: </label>
-                            <input type="file" (change)="uploadFile($event)">
-                            <img *ngIf="(image$ | async) as image" [src]="image" alt="">  
-                        </div>
+                        
                     </div>
                     <div class="row">
                         <div class="col">

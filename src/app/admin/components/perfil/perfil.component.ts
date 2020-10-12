@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { Empresa, EmpresaControllerService, Persona, PersonaControllerService } from 'src/app/core/Backend';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -14,6 +16,7 @@ export class PerfilComponent implements OnInit {
   persona: Persona;
   image$: Observable<any>;
   empresa: Empresa;
+  value: any;
   form: FormGroup;
   empId: string;
   emp: boolean;
@@ -35,10 +38,10 @@ export class PerfilComponent implements OnInit {
   constructor(private authService: AuthService,
               private perSrv: PersonaControllerService,
               private formBuilder: FormBuilder,
-              private empSrv: EmpresaControllerService,) {  }
+              private empSrv: EmpresaControllerService,
+              private storage: AngularFireStorage) { this.buildForm(); }
 
   ngOnInit(): void {
-    this.buildForm();
     this.getUser();
   }
 
@@ -83,12 +86,45 @@ export class PerfilComponent implements OnInit {
     );
   }
 
-  savePerson(event: Event){
-
+  updatePerson(event: Event){
+    event.preventDefault();
+    this.value = this.form.value;
+    this.fileRef = this.storage.ref(this.name);
+    this.task = this.storage.upload(this.name, this.file);
+    this.task.snapshotChanges().pipe(
+      finalize(() =>{
+        this.image$ = this.fileRef.getDownloadURL();
+        this.image$.subscribe(url => {
+          this.value.foto = url;
+          console.log(this.value);
+          this.perSrv.updatePersonaUsingPUT(this.value).subscribe(res => {
+          console.log(this.value);
+          });
+        });
+      })
+    ).subscribe();
   }
 
-  saveEmp(){
+  updateEmp(){
+    const empresa = this.formE.value;
+    this.direccion = this.formD.value;
+    empresa.direccion =  this.direccion;
+    empresa.personaId = this.persona.cedula;
+    console.log(empresa);
+    console.log(this.direccion);
+    this.empSrv.editarEmpresaUsingPUT(empresa).subscribe(
+      response =>{
+        console.log(empresa);
+      }
+    )
+  }
 
+  deleteUser(){
+    this.authService.userRol().then(user => {
+      user.delete().then(() =>{
+        console.log('Usuario Eliminado');
+      });
+    })
   }
 
   private buildForm(){

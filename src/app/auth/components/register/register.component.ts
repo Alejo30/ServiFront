@@ -2,11 +2,8 @@ import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Direccion, EmpresaControllerService, PersonaControllerService } from 'src/app/core/Backend';
+import { EmpresaControllerService, PersonaControllerService } from 'src/app/core/Backend';
 import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 import { AuthService } from './../../../core/services/auth.service';
 
@@ -31,12 +28,6 @@ export class RegisterComponent implements OnInit {
     calleSecundaria: '',
     numero: '',
   };
-  image$: Observable<any>;
-  task: any;
-  file: any;
-  name: any;
-  fileRef: any;
-  url: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -51,32 +42,29 @@ export class RegisterComponent implements OnInit {
     this.buildForm();
   }
 
-  uploadFile(event){
-    this.file = event.target.files[0];
-    this.name = event.target.files[0].name;
-  }
-
   register(event: Event){
     event.preventDefault();
     if (this.form.valid) {
+      console.log('El formulario es valido')
       this.isEditable = true;
       console.log(this.isEditable);
       this.value = this.form.value;
+      console.log(this.value);
       this.authService.createUser(this.value.correo, this.value.password)
       .then((result) => {
-        result.user.updateProfile({
-          displayName: this.value.cedula,
-          photoURL: this.value.foto
-        }).catch(error => {
-          console.error(error);
-        });
-        this.openDialog();
+          result.user.updateProfile({
+          displayName: this.value.cedula
+      }).catch(error => {
+                    console.error(error);
+      });
+          this.openDialog();
 
       })
       .catch(() => {
-        alert('No se ha podido Registrar');
+          alert('No se ha podido Registrar');
       });
-    }
+  }
+
   }
 
   regis(){
@@ -123,7 +111,7 @@ export class RegisterComponent implements OnInit {
       apellido: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
       correo: ['', Validators.required],
-      foto: [this.fotoBase64, Validators.required] ,
+      foto: [''],
       password: ['', Validators.required],
       cuentaEmpresario: [this.emp]
     })
