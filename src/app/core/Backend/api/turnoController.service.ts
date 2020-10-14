@@ -26,7 +26,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class TurnoControllerService {
 
-    protected basePath = '//pruebaservi.herokuapp.com/';
+    protected basePath = '//pruebaservi.herokuapp.com';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -143,7 +143,7 @@ export class TurnoControllerService {
     }
 
     /**
-     * findTurnoDisponible
+     * findDisponible
      * 
      * @param fecha fecha
      * @param hora hora
@@ -151,13 +151,13 @@ export class TurnoControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findTurnoDisponibleUsingGET(fecha: string, hora?: string, servicioId?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public findTurnoDisponibleUsingGET(fecha: string, hora?: string, servicioId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public findTurnoDisponibleUsingGET(fecha: string, hora?: string, servicioId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public findTurnoDisponibleUsingGET(fecha: string, hora?: string, servicioId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findDisponibleUsingGET(fecha: string, hora?: string, servicioId?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public findDisponibleUsingGET(fecha: string, hora?: string, servicioId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public findDisponibleUsingGET(fecha: string, hora?: string, servicioId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public findDisponibleUsingGET(fecha: string, hora?: string, servicioId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (fecha === null || fecha === undefined) {
-            throw new Error('Required parameter fecha was null or undefined when calling findTurnoDisponibleUsingGET.');
+            throw new Error('Required parameter fecha was null or undefined when calling findDisponibleUsingGET.');
         }
 
 
@@ -188,6 +188,47 @@ export class TurnoControllerService {
         return this.httpClient.request<boolean>('get',`${this.basePath}/turno/${encodeURIComponent(String(servicioId))}/${encodeURIComponent(String(fecha))}/${encodeURIComponent(String(hora))}`,
             {
                 params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * findId
+     * 
+     * @param id id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findIdUsingGET1(id: string, observe?: 'body', reportProgress?: boolean): Observable<Turno>;
+    public findIdUsingGET1(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Turno>>;
+    public findIdUsingGET1(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Turno>>;
+    public findIdUsingGET1(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling findIdUsingGET1.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Turno>('get',`${this.basePath}/turno/findById/${encodeURIComponent(String(id))}`,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

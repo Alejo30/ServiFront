@@ -35,11 +35,7 @@ export class CalendarioComponent implements AfterViewInit, OnInit {
   }
 
   prueba(){
-    this.turnoSrv.findTurnoDisponibleUsingGET("2020-09-29", "11:00").subscribe(
-      data => {
-          this.disponible = data;
-      }
-    )
+    
 
   }
 }

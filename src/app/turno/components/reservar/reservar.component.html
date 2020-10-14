@@ -1,7 +1,89 @@
 <div class="container">
 
     <div class="row">
-        <button (click)= "prueba()" mat-raised-button >Disponible</button>
+        <form [formGroup]="form" >
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Turno</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+
+                    <div class="row">
+                        <div class="col-xs">
+                            <mat-form-field>
+                                <input placeholder="Fecha del Turno"  value="2015-02-21" formControlName="fecha" matInput type="date">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs">
+                            <mat-form-field>
+                                <input placeholder="Hora" list="listalimitestiempo" formControlName="hora" matInput
+                                    type="time">
+        
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary" type="submit">Guardar Cambios</button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+        <button mat-raised-button>Disponible</button>
+       
+    </div>
+
+
+ 
+
+<ul *ngFor="let turn of turno"
+    [ngSwitch]="turn.estado">
+ 
+  <button *ngSwitchCase="true" disabled="true" style="background-color: red; color: white;" mat-raised-button>{{turn.hora}}</button>
+  <button *ngSwitchCase="false" style="background-color: green; color: white;" mat-raised-button>{{turn.hora}}</button>
+</ul>
+
+    
+    
+    
+</div>
+
+<button mat-raised-button>
+  </button>
+  <mat-horizontal-stepper #stepper>
+    <mat-step>
+      <form [formGroup]="form">
+        <ng-template matStepLabel>Seleccione la Fecha</ng-template>
+        <mat-form-field>
+            <input placeholder="Fecha del Turno" formControlName="fecha" matInput type="date">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext (click)="prueba()">Next</button>
         </div>
-        <label  [ngClass]="{redClass: disponible === true}" for="">No esta disponible</label>
-</div> 
+      </form>
+    </mat-step>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>Seleccione la hora</ng-template>
+        <ul *ngFor="let turn of turno"
+    [ngSwitch]="turn.estado">
+ 
+  <button *ngSwitchCase="true" style="background-color: red; color: white;" mat-raised-button>{{turn.hora}}</button>
+  <button *ngSwitchCase="false" style="background-color: green; color: white;" mat-raised-button>{{turn.hora}}</button>
+</ul>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>

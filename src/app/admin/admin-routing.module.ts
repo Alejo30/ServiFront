@@ -6,6 +6,8 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { ServicioEditComponent } from './components/servicio-edit/servicio-edit.component';
 import { ServicioFormComponent } from './components/servicio-form/servicio-form.component';
 import { ServicioListComponent } from './components/servicio-list/servicio-list.component';
+import { TurnoEditComponent } from './components/turno-edit/turno-edit.component';
+import { TurnoListComponent } from './components/turno-list/turno-list.component';
 
 
 const routes: Routes = [
@@ -28,6 +30,14 @@ const routes: Routes = [
       {
         path: 'servicios/edit/:id',
         component: ServicioEditComponent
+      },
+      {
+        path: 'turnos',
+        component: TurnoListComponent
+      },
+      {
+        path: 'turnos/edit/:id',
+        component: TurnoEditComponent
       },
       {
         path: 'profile',

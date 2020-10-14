@@ -1,29 +1,23 @@
 <div class="container">
-    <mat-accordion>
-        <mat-expansion-panel hideToggle>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Detalle del Servicio
-                </mat-panel-title>
-                <mat-panel-description>
-                    Revisa los detalles del servicio
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-            <div>
-                <div class="row">
-                    <img src="" alt="">
-                    <p></p>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Detalles del Servicio</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-xs-6">
+                    <p>Nombre: {{dServicio.nombre}}</p>
+                    <p>Precio del Servicio: {{dServicio.precio | currency}}</p>
+                    <p>Descripcion del Servicio: {{dServicio.descripcion}}</p>
                 </div>
-                <div>
-                    <ul>
-                        <li>Nombre: {{servicio.nombre}}</li>
-                        <li>Precio del Servicio: {{servicio.precio | currency}}</li>
-                    </ul>
-                    <p>Descripcion del Servicio: {{servicio.descripcion}}</p>
+                <div class="col-xs-6">
+                    <img [src]="dServicio.foto" alt="">
                 </div>
             </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        </mat-card-content>
+    </mat-card>
+    <mat-accordion>
+        <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Proceso de Reserva
@@ -32,43 +26,36 @@
                     Consulta la fecha y la hora para realiza tu reserva
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <div class="col">
-                <form [formGroup]="form" (ngSubmit)="cargaUsuario($event)">
-                <mat-card>
-                    <mat-card-header>
-                        <mat-card-title>Formulario de Reserva</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                       
-                            <div class="row">
-                                <div class="col">
-                                    <label for="">{{servicio.nombre}}</label>
-                                    <br>
-                                    <br>
+            <mat-horizontal-stepper #stepper>
+                <mat-step>
+                    <form [formGroup]="form">
+                        <ng-template matStepLabel>Seleccione la Fecha</ng-template>
+                        <mat-form-field>
+                            <input placeholder="Fecha del Turno" formControlName="fecha" matInput type="date">
+                        </mat-form-field>
+                        <div>
+                            <button mat-raised-button color="primary" matStepperNext (click)="getDate()">Siguiente</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step>
+                        <ng-template matStepLabel (click)="getDate()">Seleccione la hora</ng-template>
+                        <div class="row">
+                            <ul *ngFor="let turn of turno" [ngSwitch]="turn.estado">
+                                <div class="col-xs-6">
+                                    <button *ngSwitchCase="true" disabled style="background-color: red; color: white;"
+                                    mat-raised-button>{{turn.hora}}</button>
+                                <button  (click)="getHour(turn.hora)" *ngSwitchCase="false" style="background-color: green; color: white;"
+                                    mat-raised-button>{{turn.hora}}</button>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <mat-form-field class="full-width">
-                                        <input placeholder="Fecha" formControlName="fecha" matInput type="date">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <mat-form-field class="full-width">
-                                        <input placeholder="Hora" formControlName="hora" matInput type="text">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                     
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <button [disabled]="form.invalid" mat-raised-button type="submit">Reservar el turno</button>
-                    </mat-card-actions>
-                </mat-card>
-            </form>
-            </div>
+                            </ul>
+                        </div>  
+                        <div>
+                            <button mat-button matStepperPrevious>Atras</button>
+                            <button mat-button (click)="stepper.reset()">Cancelar</button>
+                        </div>
+                </mat-step>
+            </mat-horizontal-stepper>
         </mat-expansion-panel>
     </mat-accordion>
 </div>

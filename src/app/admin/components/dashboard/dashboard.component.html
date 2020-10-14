@@ -18,57 +18,31 @@
   </div>
   <br>
   <div class="row">
-    <div class="col-xs-6 center-xs" *ngIf=" visible; else user">
+    <div class="col-xs-12" *ngIf=" visible; else user">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>Servicios</mat-card-title>
         </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <table mat-table [dataSource]="servicios" class="mat-elevation-z8 servicios-table">
-            <ng-container matColumnDef="nombre">
-              <th mat-header-cell *matHeaderCellDef>Nombre</th>
-              <td mat-cell *matCellDef="let servicio">{{servicio.nombre}}</td>
-            </ng-container>
-            <ng-container matColumnDef="precio">
-              <th mat-header-cell *matHeaderCellDef> Precio </th>
-              <td mat-cell *matCellDef="let servicio"> {{servicio.precio}} </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumnsS"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumnsS;"></tr>
-          </table>
+        <mat-card-content>
+          <p>Administra tus servicios desde el modulo de Servicios, "editalos" si lo necesitas, crea nuevos servicios y empieza a recibir a tus clientes</p>
         </mat-card-content>
-        <mat-card-action>
+        <mat-card-actions class="actions">
           <button mat-raised-button color="primary" routerLink= '/admin/servicios'>Administrar Servicios</button>
-        </mat-card-action>
+        </mat-card-actions>
       </mat-card>
     </div>
     <br>
-    <div class="col-xs-6 center-xs">
+    <div class="col-xs-12">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>Turnos</mat-card-title>
         </mat-card-header>
-        <mat-card-content class="dashboard-card-content" >
-          <table mat-table [dataSource]="turnos" class="mat-elevation-z8 turnos-table">
-            <ng-container matColumnDef="fecha">
-              <th mat-header-cell *matHeaderCellDef>Fecha</th>
-              <td mat-cell *matCellDef="let turno">{{turno.fecha}}</td>
-            </ng-container>
-            <ng-container matColumnDef="hora">
-              <th mat-header-cell *matHeaderCellDef> Hora </th>
-              <td mat-cell *matCellDef="let turno"> {{turno.hora}} </td>
-            </ng-container>
-            <ng-container matColumnDef="acciones">
-              <th mat-header-cell *matHeaderCellDef> Acciones </th>
-              <td mat-cell *matCellDef="let turno">
-                <button mat-raised-button color="primary" >Editar</button>
-                <button mat-raised-button color="warn" >Eliminar</button>
-              </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumnsT"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumnsT;"></tr>
-          </table>
+        <mat-card-content >
+          <p>Administra tus reservas desde el modulo de Turnos, "editalos" si lo necesitas, si no puedes asistir a tu turno eliminalos</p>
         </mat-card-content>
+        <mat-card-actions class="actions">
+          <button  mat-raised-button color="primary" routerLink= '/admin/servicios'>Administrar Turnos</button>
+        </mat-card-actions>
       </mat-card>
     </div>
     <div class="col-xs">
@@ -85,3 +59,4 @@
     </div>
   </div>
 </div>
+

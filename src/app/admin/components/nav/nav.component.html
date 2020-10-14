@@ -13,6 +13,10 @@
         <span class="material-icons">
           account_box
         </span> Perfil</a>
+        <a mat-list-item routerLink='/admin/turnos'>
+          <span class="material-icons">
+            local_activity
+          </span> Turnos</a>
       <button mat-menu-item [matMenuTriggerFor]="servicios" *ngIf="visible"> <span class="material-icons">
           store
         </span> Servcios</button>
@@ -26,6 +30,7 @@
     <button mat-menu-item routerLink='/admin/servicios'>Lista de Servicios</button>
   </mat-menu>
   <mat-sidenav-content>
+    
     <mat-toolbar color="primary">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">

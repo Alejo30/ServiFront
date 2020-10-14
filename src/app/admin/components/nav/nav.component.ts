@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -25,7 +25,6 @@ export class NavComponent {
   constructor(private breakpointObserver: BreakpointObserver,
               private authService: AuthService,
               private router: Router,
-              private activeRoute: ActivatedRoute,
               private perSrv: PersonaControllerService) {
                 this.getP();
               }
@@ -34,12 +33,12 @@ export class NavComponent {
   logout(){
     this.authService.logout()
     .then(()=>{
-      this.router.navigate(['./home'])
+      this.router.navigate(['./home']);
     });
   }
 
   getP(){
-    this.authService.userRol().then((user)=> {
+    this.authService.userRol().then((user) => {
       this.id = user.displayName;
       console.log(user.displayName);
       this.perSrv.findByCedulaUsingGET(this.id).subscribe(

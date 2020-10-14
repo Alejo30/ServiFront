@@ -15,55 +15,25 @@ export class DashboardComponent {
   persona: Persona;
   usuario: string;
   empresa: Empresa;
-  servicios = [];
   visible: boolean;
-  turnos = [];
-  displayedColumnsT: string[] = ['fecha', 'hora', 'acciones'];
-  displayedColumnsS: string[] = ['nombre', 'precio'];
-
-
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Perfil', cols: 1, rows: 1 },
-          { title: 'Servicios', cols: 1, rows: 1 },
-          { title: 'Turnos', cols: 1, rows: 1 },
-        ];
-      }
-
-      return [
-        { title: 'Perfil', cols: 2, rows: 1 },
-        { title: 'Servicios', cols: 1, rows: 1},
-        { title: 'Turnos', cols: 5, rows: 2 },
-      ];
-    })
-  );
-
-  constructor(private breakpointObserver: BreakpointObserver,
-              private perSrv: PersonaControllerService,
+  
+  constructor(private perSrv: PersonaControllerService,
               private empSrv: EmpresaControllerService,
-              private turnSrv: TurnoControllerService,
-              private servSrv: ServicioControllerService,
               private authService: AuthService) {}
 
     ngOnInit(): void {
-      this.getP();
+      this.getUser();
     }
 
 
-    getP(){
+    getUser(){
       this.authService.userRol().then((user) => {
         const id = user.displayName;
-        console.log(user.displayName);
         this.perSrv.findByCedulaUsingGET(id).subscribe(
           rest => {
             this.persona = rest;
-            console.log(rest);
             this.fetchEmpresa(id);
-            this.fetchTurnos(id);
             this.usuario = this.persona.nombre;
-            console.log(this.usuario)
           }
         );
       });
@@ -76,30 +46,11 @@ export class DashboardComponent {
           if (rest) {
             this.visible = true;
             const empId = this.empresa.ruc;
-            console.log(this.empresa);
-            this.fetchServicios(empId);
           }else{
             this.visible = false;
-            console.log(this.empresa);
           }
         }
       );
     }
-
-    fetchServicios(id: string){
-      this.servSrv.findServiciosEmpresaUsingGET(id).subscribe(
-        servicios => {
-          this.servicios = servicios;
-      })
-    }
-
-    fetchTurnos(id: string){
-      this.turnSrv.findTurnosPersonaUsingGET(id).subscribe(
-        turnos => {
-          this.turnos = turnos;
-        }
-      )
-    }
-
 
 }

@@ -1,0 +1,30 @@
+<div class="container">
+    
+    <form [formGroup]="form" (ngSubmit)="updateTurno($event)">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Turno</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <div class="row">
+                    <div class="col-xs">
+                        <mat-form-field>
+                            <input placeholder="Fecha del Turno" formControlName="fecha" matInput type="date">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs">
+                        <mat-form-field>
+                            <input placeholder="Hora" formControlName="hora" matInput type="time">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" type="submit">Guardar Cambios</button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>

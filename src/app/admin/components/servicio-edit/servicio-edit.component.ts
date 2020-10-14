@@ -10,25 +10,27 @@ import { ServicioControllerService } from 'src/app/core/Backend';
 })
 export class ServicioEditComponent implements OnInit {
 
-  form: FormGroup; 
+  form: FormGroup;
   id: string;
+  empId: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private servSrv: ServicioControllerService,
     private activeRoute: ActivatedRoute) {
-      this.buildForm()
+      this.buildForm();
      }
 
   ngOnInit(): void {
 
     this.activeRoute.params.subscribe(
-      (params: Params)=> {
+      (params: Params) => {
         this.id = params.id;
         this.servSrv.findIdUsingGET(this.id).subscribe(servicio => {
           this.form.patchValue(servicio);
-        } )
+          console.log(servicio);
+        } );
         });
   }
 
@@ -53,6 +55,7 @@ export class ServicioEditComponent implements OnInit {
       nombre: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
       precio: ['', [Validators.required]],
+      empresaId: ['', [Validators.required]]
     })
   }
 

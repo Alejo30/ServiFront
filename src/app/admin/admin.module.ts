@@ -13,11 +13,13 @@ import { ServicioListComponent } from './components/servicio-list/servicio-list.
 import { ServicioEditComponent } from './components/servicio-edit/servicio-edit.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { PrimeModule } from '../prime/prime.module';
+import { TurnoEditComponent } from './components/turno-edit/turno-edit.component';
+import { TurnoListComponent } from './components/turno-list/turno-list.component';
 
 
 
 @NgModule({
-  declarations: [NavComponent, DashboardComponent, ServicioFormComponent, ServicioListComponent, ServicioEditComponent, PerfilComponent],
+  declarations: [NavComponent, DashboardComponent, ServicioFormComponent, ServicioListComponent, ServicioEditComponent, PerfilComponent, TurnoEditComponent, TurnoListComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

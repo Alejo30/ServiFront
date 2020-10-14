@@ -4,11 +4,11 @@
 
 .dashboard-card {
   position: relative;
+  margin-top: 10px;
   top: 20px;
   left: 20px;
   right: 20px;
   bottom: 20px;
-  text-align: center;
 }
 
 .more-button {
@@ -22,9 +22,8 @@
   align-content: center;
 }
 
-.turnos-table{
-  width: 98%;
-  margin: 2%; 
+.actions{
+  margin-left: 45%;
 }
 
 .servicios-table{

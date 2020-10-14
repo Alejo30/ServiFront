@@ -46,6 +46,7 @@ export class ServicioListComponent implements OnInit {
         this.empresa = rest;
         if (rest) {
           this.empId = this.empresa.ruc;
+          console.log(this.empresa)
           this.fetchServicios(this.empId);
         }else{
           console.log(this.empresa);
