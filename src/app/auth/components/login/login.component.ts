@@ -46,7 +46,8 @@ export class LoginComponent implements OnInit {
          this.router.navigate(['/admin/']);
       })
       .catch((err) => {
-        alert( err  + ' El Email o la Contraseña son incorrectos')
+        
+        this.openDialogErrorLogin();
       });
     }
   }
@@ -76,6 +77,14 @@ export class LoginComponent implements OnInit {
     }
     });
   }
+
+  openDialogErrorLogin(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'La Contraseña o el Email estan incorrectos!',
+    });
+   }
 
   private buildForm() {
     this.form = this.formBuilder.group({
