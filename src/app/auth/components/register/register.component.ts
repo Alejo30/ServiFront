@@ -137,13 +137,13 @@ export class RegisterComponent implements OnInit {
 
   private buildForm(){
     this.form = this.formBuilder.group({
-      cedula: ['', Validators.required],
+      cedula: ['', Validators.required, Validators.minLength(2), Validators.maxLength(10)],
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
       correo: ['', Validators.required],
       foto: [''],
-      password: ['', Validators.required],
+      password: ['', Validators.required, Validators.minLength(6)],
       cuentaEmpresario: [this.emp]
     })
 

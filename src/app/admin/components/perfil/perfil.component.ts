@@ -100,7 +100,7 @@ export class PerfilComponent implements OnInit {
     Swal.fire({
       position: 'top-end',
       icon: 'success',
-      title: '¡Imagen Guardada con éxito!',
+      title: '¡Datos Guardados con éxito!',
       showConfirmButton: false,
       timer: 2500
     })
@@ -147,6 +147,7 @@ export class PerfilComponent implements OnInit {
     this.empSrv.editarEmpresaUsingPUT(empresa).subscribe(
       response =>{
         console.log(empresa);
+        this.openSaveI();
       }
     )
   }
