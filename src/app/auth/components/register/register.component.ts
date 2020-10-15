@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { EmpresaControllerService, PersonaControllerService } from 'src/app/core/Backend';
 import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 import { AuthService } from './../../../core/services/auth.service';
-
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -17,6 +17,7 @@ import { AuthService } from './../../../core/services/auth.service';
 export class RegisterComponent implements OnInit {
 
   form: FormGroup;
+  timerInterval;
   formE: FormGroup;
   formD: FormGroup;
   emp: boolean;
@@ -57,8 +58,7 @@ export class RegisterComponent implements OnInit {
           }).catch(error => {
                     console.error(error);
           });
-          this.openDialog();
-
+          this.openRegisterP();
       })
       .catch(() => {
           alert('No se ha podido Registrar');
@@ -80,6 +80,7 @@ export class RegisterComponent implements OnInit {
       });
       console.log(empresa.personaId);
       console.log(empresa);
+      this.openRegisterE();
       this.router.navigate(['/auth/login']);
     }else{
       console.log('No es valido');
@@ -103,6 +104,36 @@ export class RegisterComponent implements OnInit {
       }
     })
   }
+
+  openRegisterP(){
+    Swal.fire({
+      title:  'Bienvenido, para poder promocionar tus servicios debes registrar tu negocio, ¿Deseas hacerlo?.',
+      showDenyButton: true,
+      confirmButtonText: `Si`,
+      denyButtonText: `No`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Usuario creado con exito!, Ahora registra tu negocio', '', 'success');
+        this.value.cuentaEmpresario = this.emp = true;
+        this.RegisPerson(this.value);
+      } else if (result.isDenied) {
+        Swal.fire('Ok, Es hora de Iniciar Sesión', '', 'info');
+        this.RegisPerson(this.value);
+        this.router.navigate(['/auth/login']);
+      }
+    });
+   }
+
+
+   openRegisterE(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: '¡Los datos de tu empresa han sido guardados con exito!',
+      showConfirmButton: false,
+      timer: 2500
+    })
+   }
 
   private buildForm(){
     this.form = this.formBuilder.group({

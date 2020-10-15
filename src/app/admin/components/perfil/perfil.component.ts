@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { Empresa, EmpresaControllerService, Persona, PersonaControllerService } from 'src/app/core/Backend';
 import { AuthService } from 'src/app/core/services/auth.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-perfil',
@@ -36,6 +37,7 @@ export class PerfilComponent implements OnInit {
   cargando: boolean;
   visible: boolean;
   cambio = false;
+  timerInterval;
 
   constructor(private authService: AuthService,
               private perSrv: PersonaControllerService,
@@ -94,6 +96,17 @@ export class PerfilComponent implements OnInit {
     );
   }
 
+  openSaveI(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: '¡Imagen Guardada con éxito!',
+      showConfirmButton: false,
+      timer: 2500
+    })
+   }
+
+
   updatePerson(event: Event){
     event.preventDefault();
     this.value = this.form.value;
@@ -106,8 +119,10 @@ export class PerfilComponent implements OnInit {
         this.image$.subscribe(url => {
           this.value.foto = url;
           console.log(this.value);
+          this.openSaveI();
           this.perSrv.updatePersonaUsingPUT(this.value).subscribe(res => {
             console.log(this.value);
+            this.getUser();
             });
         });
       })
@@ -116,7 +131,8 @@ export class PerfilComponent implements OnInit {
       this.value.foto = this.persona.foto;
       this.perSrv.updatePersonaUsingPUT(this.value).subscribe(res => {
         console.log(this.value);
-        });
+        this.getUser();
+      });
     }
     
   }

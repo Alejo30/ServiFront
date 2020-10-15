@@ -9,7 +9,6 @@
                       <div class="row">
                         <div class="col-xs-4 center-xs">
                           <div>
-                              <img *ngIf="(image$ | async) as image" [src]="image" alt="Imagen del Usuario">
                               <img *ngIf="cargando === true" [src]="persona.foto" alt="Imagen del Usuario" >
                           </div>
                           <br>

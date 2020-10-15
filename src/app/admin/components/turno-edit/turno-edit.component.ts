@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Turno, TurnoControllerService } from 'src/app/core/Backend';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-turno-edit',
   templateUrl: './turno-edit.component.html',
@@ -13,6 +13,8 @@ export class TurnoEditComponent implements OnInit {
   form: FormGroup; 
   id: string;
   turno: Turno;
+  timerInterval;
+
 
   constructor( private formBuilder: FormBuilder,
                private router: Router,
@@ -31,17 +33,31 @@ export class TurnoEditComponent implements OnInit {
           console.log(turno);
           this.turno = turno;
         }
-        )
+        );
       });
-     
   }
 
-  updateTurno(event: Event){
-    event.preventDefault();
+  openUpdateT(){
+    Swal.fire({
+      title:  '¿Quieres guardar los cambios?',
+      showDenyButton: true,
+      confirmButtonText: `Si`,
+      denyButtonText: `No`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Datos guardados con exito!', '', 'success');
+        this.updateTurno();
+      } else if (result.isDenied) {
+        Swal.fire('Ok', '', 'info');
+      }
+    });
+   }
+
+  updateTurno(){
     const newTurno = this.form.value;
     newTurno.personaId = this.turno.personaId;
     newTurno.servicioId = this.turno.servicioId;
-    this.turnoSrv.updateTurnoUsingPUT(newTurno).subscribe(()=>{
+    this.turnoSrv.updateTurnoUsingPUT(newTurno).subscribe(() => {
       this.router.navigate(['/admin/turnos']);
     });
   }
