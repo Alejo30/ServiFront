@@ -26,19 +26,11 @@
   margin-right: 0;
 }
 
-.mat-card-avatar{
-  
+img{
   background-size: cover;
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
-}
-
-.crop-image{
-  background-size: cover;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 80%;
+  height: 10%;
 }
 
 .form{
