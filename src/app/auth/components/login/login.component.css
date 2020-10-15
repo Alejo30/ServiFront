@@ -4,7 +4,8 @@
     background-color: #EE7505;
 }
 
-.img{
+img{
     display:block;
-margin:auto;
+    margin:auto;
+    left:100;
 }
