@@ -4,6 +4,9 @@
             <mat-card-title>Detalles del Servicio</mat-card-title>
         </mat-card-header>
         <mat-card-content>
+            <div *ngIf="cargando === false">
+                <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+            </div>
             <div class="row">
                 <div class="col-xs-6">
                     <p>Nombre: {{dServicio.nombre}}</p>

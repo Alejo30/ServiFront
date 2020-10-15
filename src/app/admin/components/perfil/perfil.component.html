@@ -9,13 +9,13 @@
                       <div class="row">
                         <div class="col-xs-4 center-xs">
                           <div mat-card-avatar class="example-header-image">
-                            <img [src]="file" alt="">
+                              <img *ngIf="(image$ | async) as image" [src]="image" alt="Imagen del Usuario">
+                              <img *ngIf="cargando === true" [src]="persona.foto" alt="Imagen del Usuario">
                           </div>
                           <br>
                           <br>
                           <div class="col-xs">     
                             <input type="file" (change)="uploadFile($event)">
-                            <img *ngIf="(image$ | async) as image" [src]="image" alt="">
                         </div>
                         </div>
                         <div class="col-xs-8">

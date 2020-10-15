@@ -27,7 +27,7 @@ export class ServicioFormComponent implements OnInit {
   name: any;
   fileRef: any;
   url: any;
-
+  
   constructor(
     private formBuilder: FormBuilder,
     private serviSrv: ServicioControllerService,
@@ -51,12 +51,14 @@ export class ServicioFormComponent implements OnInit {
   }
 
   getUser(){
+ 
     this.authService.userRol().then((user) => {
       this.id  = user.displayName;
       this.perSrv.findByCedulaUsingGET(this.id).subscribe(
         rest => {
           this.persona = rest;
           this.fetchEmpresa(this.id);
+        
         }
       );
     });

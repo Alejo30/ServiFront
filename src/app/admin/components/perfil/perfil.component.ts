@@ -17,6 +17,7 @@ export class PerfilComponent implements OnInit {
   image$: Observable<any>;
   empresa: Empresa;
   value: any;
+  foto: any;
   form: FormGroup;
   empId: string;
   emp: boolean;
@@ -32,17 +33,18 @@ export class PerfilComponent implements OnInit {
   name: any;
   fileRef: any;
   url: any;
-
+  cargando: boolean;
   visible: boolean;
 
   constructor(private authService: AuthService,
               private perSrv: PersonaControllerService,
               private formBuilder: FormBuilder,
               private empSrv: EmpresaControllerService,
-              private storage: AngularFireStorage) { this.buildForm(); }
+              private storage: AngularFireStorage) {  }
 
   ngOnInit(): void {
     this.getUser();
+    this.buildForm();
   }
 
   uploadFile(event){
@@ -51,6 +53,7 @@ export class PerfilComponent implements OnInit {
   }
 
   getUser(){
+    this.cargando = false;
     this.authService.hasUser().subscribe(user => {
       if (user) {
         console.log('true');
@@ -58,8 +61,11 @@ export class PerfilComponent implements OnInit {
         this.perSrv.findByCedulaUsingGET(id).subscribe(
           rest => {
             this.persona = rest;
+            console.log(this.persona);
             this.form.patchValue(rest);
             this.fetchEmpresa(id);
+            this.foto =  this.persona.foto;
+            this.cargando = true;
           }
         );
       } else {

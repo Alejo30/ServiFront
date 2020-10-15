@@ -11,6 +11,12 @@
                             <input placeholder="Nombre del Servicio" formControlName="nombre" matInput type="text">
                         </mat-form-field>
                     </div>
+                    <div class="col-xs">
+                        <img *ngIf="(image$ | async) as image" [src]="image" alt="">
+                        <img [src]="servicio.foto" alt="">
+                        <label for="">Cambiar Imagen del Servicio</label>
+                        <input type="file" (change)="uploadFile($event)">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-xs">

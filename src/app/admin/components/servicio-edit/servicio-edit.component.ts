@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ServicioControllerService } from 'src/app/core/Backend';
+import { Observable } from 'rxjs';
+import { Servicio, ServicioControllerService } from 'src/app/core/Backend';
 
 @Component({
   selector: 'app-servicio-edit',
@@ -13,6 +14,13 @@ export class ServicioEditComponent implements OnInit {
   form: FormGroup;
   id: string;
   empId: string;
+  image$: Observable<any>;
+  servicio: Servicio;
+  task: any;
+  file: any;
+  name: any;
+  fileRef: any;
+  url: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,6 +38,7 @@ export class ServicioEditComponent implements OnInit {
         this.servSrv.findIdUsingGET(this.id).subscribe(servicio => {
           this.form.patchValue(servicio);
           console.log(servicio);
+          this.servicio = servicio;
         } );
         });
   }
@@ -37,16 +46,24 @@ export class ServicioEditComponent implements OnInit {
 
   saveServicio(event: Event){
     event.preventDefault();
+    const servicio = this.form.value;
+    servicio.foto = this.servicio.foto;
+    console.log(servicio.foto)
     if(this.form.valid){
-      const servicio = this.form.value;
-      this.servSrv.editarServicioUsingPUT(servicio)
+      /* this.servSrv.editarServicioUsingPUT(servicio)
       .subscribe((newServicio)=>{
         console.log(newServicio);
         this.router.navigate(['./admin/servicios']);
       }
-      )
+      ) */
+      console.log(this.form.value);
     }
-    console.log(this.form.value);
+    
+  }
+
+  uploadFile(event){
+    this.file = event.target.files[0];
+    this.name = event.target.files[0].name;
   }
 
   private buildForm(){
@@ -54,6 +71,7 @@ export class ServicioEditComponent implements OnInit {
       id: [this.id],
       nombre: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
+      foto: ['', [Validators.required]],
       precio: ['', [Validators.required]],
       empresaId: ['', [Validators.required]]
     })

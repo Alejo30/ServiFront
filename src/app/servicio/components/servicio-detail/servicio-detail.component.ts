@@ -13,7 +13,7 @@ import Swal from 'sweetalert2'
 })
 export class ServicioDetailComponent implements OnInit {
 
-
+  cargando: boolean;
   persona: Persona;
   servicio: Servicio;
   dServicio: any = {
@@ -129,27 +129,15 @@ export class ServicioDetailComponent implements OnInit {
   }
 
   fetchServicio(id: string){
+    this.cargando = false;
     this.serviSrv.findIdUsingGET(id).subscribe(
       servicio => {
         this.dServicio = servicio;
+        this.cargando = true;
       }
     )
   }
-  openDialog(){
-    Swal.fire({
-      title: '¿Estas Seguro?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: `Si`,
-      denyButtonText: `No`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire('Turno Asignado!', '', 'success');
-      } else if (result.isDenied) {
-        Swal.fire('Turno no Asignado', '', 'info');
-      }
-    })
-   }
+
 
    openDialogHour(){
     Swal.fire({
