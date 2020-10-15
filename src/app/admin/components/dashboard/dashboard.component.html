@@ -18,7 +18,7 @@
   </div>
   <br>
   <div class="row">
-    <div class="col-xs-12" *ngIf=" visible; else user">
+    <div class="col-xs-12" *ngIf=" visible">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>Servicios</mat-card-title>
@@ -41,21 +41,9 @@
           <p>Administra tus reservas desde el modulo de Turnos, "editalos" si lo necesitas, si no puedes asistir a tu turno eliminalos</p>
         </mat-card-content>
         <mat-card-actions class="actions">
-          <button  mat-raised-button color="primary" routerLink= '/admin/servicios'>Administrar Turnos</button>
+          <button  mat-raised-button color="primary" routerLink= '/admin/turnos'>Administrar Turnos</button>
         </mat-card-actions>
       </mat-card>
-    </div>
-    <div class="col-xs">
-      <ng-template #user>
-        <mat-card class="dashboard-card">
-          <mat-card-header>
-            <mat-card-title>¡No tienes Servicios aún!</mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="dashboard-card-content">
-            <h1>Crea un servicio desde el menú izquierdo</h1>
-          </mat-card-content>
-        </mat-card>
-      </ng-template>
     </div>
   </div>
 </div>
