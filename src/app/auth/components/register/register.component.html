@@ -8,10 +8,7 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width">
-                                <input maxlength=10 placeholder="Cédula" formControlName="cedula" matInput type="text">
-                                <mat-error *ngIf="form.controls['cedula'].hasError('minLength')">
-                                     <strong>Número de cedula inválido</strong>
-                                  </mat-error>      
+                                <input maxlength='10' placeholder="Cédula" formControlName="cedula" matInput type="text">    
                            </mat-form-field>
                         </div>
                         
@@ -38,19 +35,13 @@
                         <div class="col-xs">
                             <mat-form-field class="full-width">
                                 <input placeholder="Email" formControlName="correo" matInput type="email">
-                                <mat-error *ngIf="form.controls['email'].hasError('required')">
-                                    El Email es <strong>requerido</strong>
-                                  </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width">
-                                <input placeholder="Contraseña" formControlName="password" matInput type="text">
-                                <mat-error *ngIf="form.controls['password'].hasError('required')">
-                                    El Password es <strong>requerido</strong>
-                                  </mat-error>
+                                <input placeholder="Contraseña" minLength='6' formControlName="password" matInput type="text">
                             </mat-form-field>
                         </div>
                     </div>
