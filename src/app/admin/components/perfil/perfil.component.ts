@@ -35,6 +35,7 @@ export class PerfilComponent implements OnInit {
   url: any;
   cargando: boolean;
   visible: boolean;
+  cambio = false;
 
   constructor(private authService: AuthService,
               private perSrv: PersonaControllerService,
@@ -50,6 +51,7 @@ export class PerfilComponent implements OnInit {
   uploadFile(event){
     this.file = event.target.files[0];
     this.name = event.target.files[0].name;
+    this.cambio = true;
   }
 
   getUser(){
@@ -95,20 +97,28 @@ export class PerfilComponent implements OnInit {
   updatePerson(event: Event){
     event.preventDefault();
     this.value = this.form.value;
-    this.fileRef = this.storage.ref(this.name);
-    this.task = this.storage.upload(this.name, this.file);
-    this.task.snapshotChanges().pipe(
+    if (this.cambio) {
+      this.fileRef = this.storage.ref(this.name);
+      this.task = this.storage.upload(this.name, this.file);
+      this.task.snapshotChanges().pipe(
       finalize(() =>{
         this.image$ = this.fileRef.getDownloadURL();
         this.image$.subscribe(url => {
           this.value.foto = url;
           console.log(this.value);
           this.perSrv.updatePersonaUsingPUT(this.value).subscribe(res => {
-          console.log(this.value);
-          });
+            console.log(this.value);
+            });
         });
       })
     ).subscribe();
+    } else {
+      this.value.foto = this.persona.foto;
+      this.perSrv.updatePersonaUsingPUT(this.value).subscribe(res => {
+        console.log(this.value);
+        });
+    }
+    
   }
 
   updateEmp(){

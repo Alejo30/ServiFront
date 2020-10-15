@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Empresa, EmpresaControllerService, PersonaControllerService, ServicioControllerService } from 'src/app/core/Backend';
 import { AuthService } from 'src/app/core/services/auth.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class ServicioListComponent implements OnInit {
   id: string;
   empId: string;
   displayedColumns: string[] =['nombre', 'precio', 'acciones'];
+  timerInterval;
 
   constructor(private serviSrv: ServicioControllerService,
               private authService: AuthService,
@@ -63,6 +65,30 @@ export class ServicioListComponent implements OnInit {
       }
     )
   }
+
+
+  openDeleteS(id: string){
+    Swal.fire({
+      title:  '¿Estás seguro que quieres eliminar este Servicio?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: `Si`,
+      denyButtonText: `No`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Servicio eliminado con exito!', '', 'success');
+        this.serviSrv.deleteServicioUsingDELETE(id).subscribe(
+          data => {
+           this.fetchServicios(this.empId);
+           console.log(data);
+          }
+        )
+      } else if (result.isDenied) {
+        Swal.fire('Ok', '', 'info');
+      }
+    })
+   }
+
 
   deleteProduct(id: string){
     this.serviSrv.deleteServicioUsingDELETE(id).subscribe(

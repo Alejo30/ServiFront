@@ -13,7 +13,7 @@
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
         <td mat-cell *matCellDef="let servicio">
             <button style="margin: 5px" mat-raised-button color="primary" [routerLink]="['edit', servicio.id]">Editar</button>
-            <button mat-raised-button color="warn" (click)="deleteProduct(servicio.id)">Eliminar</button>
+            <button mat-raised-button color="warn" (click)="openDeleteS(servicio.id)">Eliminar</button>
         </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

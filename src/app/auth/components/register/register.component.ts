@@ -53,10 +53,10 @@ export class RegisterComponent implements OnInit {
       this.authService.createUser(this.value.correo, this.value.password)
       .then((result) => {
           result.user.updateProfile({
-          displayName: this.value.cedula
-      }).catch(error => {
+              displayName: this.value.cedula
+          }).catch(error => {
                     console.error(error);
-      });
+          });
           this.openDialog();
 
       })
@@ -89,7 +89,7 @@ export class RegisterComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '350px',
-      data: '<h3>¡Bienvenido a la Plataforma de ServiFacil!</h3> <p>Hemos guardado tus datos.</p> <p>Si quieres poner tus servicios en linea, puedes hacerlo a continuación, solo debes registrar tu negocio.</p><p>¿Desea hacerlo?</p>'
+      data: '¡Bienvenido a la Plataforma de ServiFacil! Hemos guardado tus datos.Si quieres poner tus servicios en linea, puedes hacerlo a continuación, solo debes registrar tu negocio. ¿Desea hacerlo?'
     });
     dialogRef.afterClosed().subscribe(res => {
       console.log(res);
