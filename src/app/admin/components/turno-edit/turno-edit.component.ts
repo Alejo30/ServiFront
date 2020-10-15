@@ -25,16 +25,7 @@ export class TurnoEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    this.activeRoute.params.subscribe(
-      (params: Params) => {
-        this.id = params.id;
-        this.turnoSrv.findIdUsingGET1(this.id).subscribe( turno => {
-          this.form.patchValue(turno);
-          console.log(turno);
-          this.turno = turno;
-        }
-        );
-      });
+    this.getTurno();
   }
 
   openUpdateT(){
@@ -49,8 +40,22 @@ export class TurnoEditComponent implements OnInit {
         this.updateTurno();
       } else if (result.isDenied) {
         Swal.fire('Ok', '', 'info');
+        this.getTurno();
       }
     });
+   }
+
+   getTurno(){
+    this.activeRoute.params.subscribe(
+      (params: Params) => {
+        this.id = params.id;
+        this.turnoSrv.findIdUsingGET1(this.id).subscribe( turno => {
+          this.form.patchValue(turno);
+          console.log(turno);
+          this.turno = turno;
+        }
+        );
+      });
    }
 
   updateTurno(){
