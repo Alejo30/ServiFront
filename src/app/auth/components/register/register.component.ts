@@ -137,27 +137,27 @@ export class RegisterComponent implements OnInit {
 
   private buildForm(){
     this.form = this.formBuilder.group({
-      cedula: ['', Validators.required],
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      fechaNacimiento: ['', Validators.required],
-      correo: ['', Validators.required],
+      cedula: ['', [Validators.required]],
+      nombre: ['', [Validators.required]],
+      apellido: ['', [Validators.required]],
+      fechaNacimiento: ['', [Validators.required]],
+      correo: ['', [Validators.required]],
       foto: [''],
-      password: ['', Validators.required],
+      password: ['', [Validators.required]],
       cuentaEmpresario: [this.emp]
     })
 
     this.formE = this.formBuilder.group({
-      ruc: ['', Validators.required],
-      nombre: ['', Validators.required],
+      ruc: ['', [Validators.required]],
+      nombre: ['', [Validators.required]],
       personaId: [''],
       direccion: [this.direccion]
     })
 
     this.formD = this.formBuilder.group({
-      callePrincipal: ['', Validators.required],
-      calleSecundaria: ['', Validators.required],
-      numero: ['', Validators.required]
+      callePrincipal: ['', [Validators.required]],
+      calleSecundaria: ['', [Validators.required]],
+      numero: ['', [Validators.required]]
     });
   }
 
